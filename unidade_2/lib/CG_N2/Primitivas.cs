@@ -19,7 +19,7 @@ namespace CG_N2
     protected override void DesenharObjeto()
     {
       GL.PointSize(8);
-      GL.Begin(primitivas[counter]);
+      GL.Begin(primitivas[counter % primitivas.Length]);
       for (int i = 0; i < pontosLista.Count; i++)
       {
         GL.Color3(cores[i].CorR, cores[i].CorG, cores[i].CorB);
@@ -28,11 +28,7 @@ namespace CG_N2
       GL.End();
     }
     public void nextPrimitive() {
-      if(counter == primitivas.Length - 1) {
-        counter = 0;
-      } else {
-        this.counter++;
-      }
+      this.counter++;
     }
   }
 }
