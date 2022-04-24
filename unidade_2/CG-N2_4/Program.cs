@@ -7,9 +7,9 @@ namespace CG_N2_4
 {
   internal class Primitivas : ObjetoGeometria
   {
-
+    private static Cor magenta=new(255,0,255), cyano=new(0,255,255), preto=new(0,0,0), amarelo=new(255,255,0);
     int counter = 0;
-    Cor[] cores = { new Cor(106,13,173), new Cor(0,255,255), new Cor(255,255,0), new Cor(0,0,0) };
+    Cor[] cores = { magenta, cyano, amarelo,  preto};
     PrimitiveType[] primitivas = { PrimitiveType.Points, PrimitiveType.Lines, PrimitiveType.LineLoop, PrimitiveType.LineStrip, PrimitiveType.Triangles, PrimitiveType.TriangleStrip, PrimitiveType.TriangleFan, PrimitiveType.Quads, PrimitiveType.QuadStrip, PrimitiveType.Polygon };
     public Primitivas(char rotulo, Objeto paiRef, Ponto4D ptoInfEsq, Ponto4D ptoSupDir) : base(rotulo, paiRef) {
       base.PontosAdicionar(ptoInfEsq);
