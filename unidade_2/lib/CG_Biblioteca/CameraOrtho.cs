@@ -39,12 +39,14 @@ namespace CG_Biblioteca
     public void PanDireita() { xMin -= 2; xMax -= 2; }
     public void PanCima() { yMin -= 2; yMax -= 2; }
     public void PanBaixo() { yMin += 2; yMax += 2; }
-    //TODO: falta testar os limites de zoom    
+    
     public void ZoomIn()
     {
+      if(xMax == 0 || ymax == 0)
+        return;
+
       xMin += 2; xMax -= 2; yMin += 2; yMax -= 2;
-    }
-    //TODO: falta testar os limites de zoom    
+    }  
     public void ZoomOut()
     {
       xMin -= 2; xMax += 2; yMin -= 2; yMax += 2;

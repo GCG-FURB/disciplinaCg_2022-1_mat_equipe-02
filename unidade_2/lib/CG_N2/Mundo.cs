@@ -24,6 +24,9 @@ namespace CG_N2
       this.obj = obj;
      }
 
+    private Mundo(int width, int height) : base(width, height) {
+     }
+
     public static Mundo GetInstance(int width, int height, ObjetoGeometria obj)
     {
       if (instanciaMundo == null)
@@ -53,9 +56,33 @@ public void addCustomKey(Key key, Action callback)
 {
   this.customKeys.Add(key, callback);
 }
+
+public void zoomIn() {
+  camera.ZoomIn();
+}
+
+public void zoomOut() {
+  camera.ZoomOut();
+}
+
+public void panBaixo() {
+  camera.PanBaixo();
+}
+
+public void panCima() {
+  camera.PanCima();
+}
+
+public void panDireita() {
+  camera.PanDireita();
+}
+
+public void panEsquerda() {
+  camera.PanEsquerda();
+}
     protected override void OnLoad(EventArgs e)
     {
-      base.OnLoad(e);
+      base.OnLoad(e);  
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
@@ -108,16 +135,7 @@ public void addCustomKey(Key key, Action callback)
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
-      else if (e.Key == Key.E)
-      {
-        Console.WriteLine("--- Objetos / Pontos: ");
-        for (var i = 0; i < objetosLista.Count; i++)
-        {
-          Console.WriteLine(objetosLista[i]);
-        }
-      }
-      else if (e.Key == Key.O)
-        bBoxDesenhar = !bBoxDesenhar;
+
       else if (customKeys.Count > 0) {
         foreach(KeyValuePair<Key, Action> kvp in customKeys) {
           if(e.Key == kvp.Key)
