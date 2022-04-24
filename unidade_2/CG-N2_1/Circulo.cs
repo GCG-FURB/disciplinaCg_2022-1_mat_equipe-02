@@ -26,7 +26,7 @@ namespace CG_N2_1
       for(int i = 0; i < quantidadePontos; i++)
       {
         angulo += 360 / quantidadePontos;
-        base.PontosAdicionar(Matematica.GerarPtosCirculo(angulo, raio));
+        base.PontosAdicionar(Matematica.GerarPtoNaCircunferencia(angulo, raio));
       }
     }
 
