@@ -1,9 +1,3 @@
-/**
-  Autor: Dalton Solano dos Reis
-**/
-
-#define CG_Debug
-
 using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
 using CG_N2;
