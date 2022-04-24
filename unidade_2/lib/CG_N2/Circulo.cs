@@ -22,7 +22,7 @@ namespace CG_N2
       double angulo = 0;
       for(int i = 0; i < quantidadePontos; i++)
       {
-        angulo += 180 / quantidadePontos / 2;
+        angulo += 360 / quantidadePontos;
         Ponto4D ponto = Matematica.GerarPtoDaCircunferencia(angulo, raio);
         ponto.X += centro.X;
         ponto.Y += centro.Y;
