@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-using CG_Biblioteca;
+﻿using CG_Biblioteca;
 using CG_N2;
 using OpenTK.Input;
 
@@ -9,10 +8,11 @@ using OpenTK.Input;
       {
         char objetoId = Utilitario.charProximo('@');
         ObjetoGeometria obj_Circulo = new Circulo(objetoId, null, new Ponto4D(0, 0, 0), 100, 72);
-        obj_Circulo.ObjetoCor.CorR = 255; obj_Circulo.ObjetoCor.CorG = 255; obj_Circulo.ObjetoCor.CorB = 0;
+        obj_Circulo.ObjetoCor.CorR = 0; obj_Circulo.ObjetoCor.CorG = 0; obj_Circulo.ObjetoCor.CorB = 0;
         Mundo window = Mundo.GetInstance(600, 600, obj_Circulo);
         window.Title = "CG_N2_2";
         window.setCameraPosition(-400, -400, 400, 400);
+        window.setBackgroundColor(1f, 1f, 1f, 1f);
         adicionarKeys(window);
         window.Run(1.0 / 60.0);
       }

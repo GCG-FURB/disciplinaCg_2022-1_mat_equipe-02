@@ -40,6 +40,9 @@ namespace CG_N2
     private ObjetoGeometria objetoSelecionado = null;
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
+
+    private float[] backgroundColors = new float[4];
+    private bool backgroundAlterado;
     int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
     private bool mouseMoverPto = false;
 #if CG_Privado
@@ -79,6 +82,14 @@ public void panDireita() {
 
 public void panEsquerda() {
   camera.PanEsquerda();
+}
+
+public void setBackgroundColor(float red, float green, float blue, float alpha) {
+      backgroundColors[0] = red;
+      backgroundColors[1] = green;
+      backgroundColors[2] = blue;
+      backgroundColors[3] = alpha;
+      backgroundAlterado = true;
 }
     protected override void OnLoad(EventArgs e)
     {
@@ -163,6 +174,10 @@ public void panEsquerda() {
     private void Sru3D()
     {
       GL.LineWidth(1);
+      if (backgroundAlterado) {
+        GL.ClearColor(backgroundColors[0], backgroundColors[1], backgroundColors[2], backgroundColors[3]);
+        GL.Clear(ClearBufferMask.ColorBufferBit);
+      }
       GL.Begin(PrimitiveType.Lines);
       // GL.Color3(1.0f,0.0f,0.0f);
       GL.Color3(Convert.ToByte(255), Convert.ToByte(0), Convert.ToByte(0));
