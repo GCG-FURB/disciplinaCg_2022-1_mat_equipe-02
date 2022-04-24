@@ -20,22 +20,27 @@ namespace CG_N2
 
     private IDictionary<Key, Action> customKeys = new Dictionary<Key, Action>();
 
-    private Mundo(int width, int height, ObjetoGeometria obj) : base(width, height) {
-      this.obj = obj;
+    private Mundo(int width, int height, List<Objeto> objs) : base(width, height) {
+      this.objetosLista = objs;
      }
 
     private Mundo(int width, int height) : base(width, height) {
      }
 
-    public static Mundo GetInstance(int width, int height, ObjetoGeometria obj)
+    public static Mundo GetInstance(int width, int height, List<Objeto> objs)
     {
       if (instanciaMundo == null)
-        instanciaMundo = new Mundo(width, height, obj);
+        instanciaMundo = new Mundo(width, height, objs);
+      return instanciaMundo;
+    }
+    public static Mundo GetInstance(int width, int height)
+    {
+      if (instanciaMundo == null)
+        instanciaMundo = new Mundo(width, height);
       return instanciaMundo;
     }
 
     private CameraOrtho camera = new CameraOrtho();
-    private ObjetoGeometria obj;
     protected List<Objeto> objetosLista = new List<Objeto>();
     private ObjetoGeometria objetoSelecionado = null;
     private char objetoId = '@';
@@ -97,10 +102,6 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
-      if(obj != null) {
-        objetosLista.Add(obj);
-        objetoSelecionado = obj;
-      }
 
 #if CG_Privado
       objetoId = Utilitario.charProximo(objetoId);
@@ -174,7 +175,7 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
     private void Sru3D()
     {
       GL.LineWidth(1);
-      if (backgroundAlterado) {
+      if (backgroundAlterado  ) {
         GL.ClearColor(backgroundColors[0], backgroundColors[1], backgroundColors[2], backgroundColors[3]);
         GL.Clear(ClearBufferMask.ColorBufferBit);
       }

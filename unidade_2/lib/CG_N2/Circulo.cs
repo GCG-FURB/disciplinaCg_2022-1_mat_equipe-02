@@ -1,8 +1,9 @@
 using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
-using CG_N2;
 
-public class Circulo : ObjetoGeometria
+namespace CG_N2
+{
+  public class Circulo : ObjetoGeometria
   {
 
     int raio;
@@ -10,7 +11,6 @@ public class Circulo : ObjetoGeometria
     Ponto4D centro;
     public Circulo(char rotulo, Objeto paiRef, Ponto4D centro, int raio, int quantidadePontos) : base(rotulo, paiRef)
     {
-      base.PontosAdicionar(centro);
       this.quantidadePontos = quantidadePontos;
       this.raio = raio;
       this.centro = centro;
@@ -19,12 +19,14 @@ public class Circulo : ObjetoGeometria
 
     private void criarPontosCircunferencia()
     {
-      base.PontosRemoverTodos();
       double angulo = 0;
       for(int i = 0; i < quantidadePontos; i++)
       {
-        angulo += 360 / quantidadePontos;
-        base.PontosAdicionar(Matematica.GerarPtoNaCircunferencia(angulo, raio));
+        angulo += 180 / quantidadePontos / 2;
+        Ponto4D ponto = Matematica.GerarPtoDaCircunferencia(angulo, raio);
+        ponto.X += centro.X;
+        ponto.Y += centro.Y;
+        base.PontosAdicionar(ponto);
       }
     }
 
@@ -42,3 +44,4 @@ public class Circulo : ObjetoGeometria
     }
 
   }
+}

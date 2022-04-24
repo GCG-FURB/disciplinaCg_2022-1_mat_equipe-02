@@ -13,7 +13,7 @@ namespace CG_Biblioteca
     /// <param name="angulo"></param>
     /// <param name="raio"></param>
     /// <returns></returns>
-    public static Ponto4D GerarPtoNaCircunferencia(double angulo, double raio)
+    public static Ponto4D GerarPtoDaCircunferencia(double angulo, double raio)
     {
       Ponto4D pto = new Ponto4D();
       pto.X = (raio * Math.Cos(Math.PI * angulo / 180.0));
