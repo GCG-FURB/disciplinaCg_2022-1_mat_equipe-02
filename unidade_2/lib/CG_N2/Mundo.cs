@@ -45,7 +45,6 @@ namespace CG_N2
 public void setCameraPosition(double xMin, double yMin, double xMax, double yMax)
 {
   camera.xmin = xMin; camera.xmax = xMax; camera.ymin = yMin; camera.ymax = yMax;
-  Console.WriteLine("sadakjdnaskdj");
 }
     protected override void OnLoad(EventArgs e)
     {
@@ -53,10 +52,10 @@ public void setCameraPosition(double xMin, double yMin, double xMax, double yMax
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
-
-      objetoId = Utilitario.charProximo(objetoId);
-      objetosLista.Add(obj);
-      objetoSelecionado = obj;
+      if(obj != null) {
+        objetosLista.Add(obj);
+        objetoSelecionado = obj;
+      }
 
 #if CG_Privado
       objetoId = Utilitario.charProximo(objetoId);
