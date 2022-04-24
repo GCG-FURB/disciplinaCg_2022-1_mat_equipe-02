@@ -18,6 +18,8 @@ namespace CG_N2
   {
     private static Mundo instanciaMundo = null;
 
+    private IDictionary<Key, Action> customKeys = new Dictionary<Key, Action>();
+
     private Mundo(int width, int height, ObjetoGeometria obj) : base(width, height) {
       this.obj = obj;
      }
@@ -45,6 +47,11 @@ namespace CG_N2
 public void setCameraPosition(double xMin, double yMin, double xMax, double yMax)
 {
   camera.xmin = xMin; camera.xmax = xMax; camera.ymin = yMin; camera.ymax = yMax;
+}
+
+public void addCustomKey(Key key, Action callback)
+{
+  this.customKeys.Add(key, callback);
 }
     protected override void OnLoad(EventArgs e)
     {
@@ -111,6 +118,12 @@ public void setCameraPosition(double xMin, double yMin, double xMax, double yMax
       }
       else if (e.Key == Key.O)
         bBoxDesenhar = !bBoxDesenhar;
+      else if (customKeys.Count > 0) {
+        foreach(KeyValuePair<Key, Action> kvp in customKeys) {
+          if(e.Key == kvp.Key)
+              kvp.Value();
+          }
+      }
       else if (e.Key == Key.V)
         mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
       else
