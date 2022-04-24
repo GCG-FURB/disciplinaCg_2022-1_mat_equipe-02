@@ -22,25 +22,24 @@ namespace CG_N2_1
     private void criarPontosCircunferencia()
     {
       base.PontosRemoverTodos();
+      double angulo = 0;
       for(int i = 0; i < quantidadePontos; i++)
       {
-        double theta = 2.0f * 3.1415926f * i / quantidadePontos;
-        double x = raio * Math.Cos(theta);
-        double y = raio * Math.Sin(theta);
-        Ponto4D ponto = new Ponto4D(x,y);
-        base.PontosAdicionar(ponto);
+        angulo += 360 / quantidadePontos;
+        base.PontosAdicionar(Matematica.GerarPtosCirculo(angulo, raio));
       }
     }
 
     protected override void DesenharObjeto()
     {
-    GL.PointSize(8);
-    
+      GL.PointSize(8);
       GL.Begin(PrimitiveType.Points);
+
       foreach (Ponto4D pto in pontosLista)
       {
         GL.Vertex2(pto.X, pto.Y);
       }
+      
       GL.End();
     }
 
