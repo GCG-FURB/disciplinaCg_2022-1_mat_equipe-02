@@ -42,7 +42,7 @@ namespace CG_Biblioteca
     
     public void ZoomIn()
     {
-      if(xMax == 0 || ymax == 0)
+      if(xMax == 0 || yMax == 0)
         return;
 
       xMin += 2; xMax -= 2; yMin += 2; yMax -= 2;
