@@ -149,11 +149,9 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
         Exit();
 
       else if (customKeys.Count > 0) {
-        foreach(KeyValuePair<Key, Action> kvp in customKeys) {
-          if(e.Key == kvp.Key)
-              kvp.Value();
-          }
-      }
+          if(customKeys.ContainsKey(e.Key))
+              customKeys[e.Key]();
+        }
       else if (e.Key == Key.V)
         mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
       else
@@ -175,7 +173,7 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
     private void Sru3D()
     {
       GL.LineWidth(1);
-      if (backgroundAlterado  ) {
+      if (backgroundAlterado) {
         GL.ClearColor(backgroundColors[0], backgroundColors[1], backgroundColors[2], backgroundColors[3]);
         GL.Clear(ClearBufferMask.ColorBufferBit);
       }
