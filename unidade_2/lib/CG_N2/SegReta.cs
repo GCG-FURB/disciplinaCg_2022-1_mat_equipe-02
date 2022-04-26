@@ -20,22 +20,33 @@ namespace CG_N2
     private double calculaAngulo() {
       return Math.Atan2(final.Y - inicial.Y, final.X - inicial.X) * 180 / Math.PI;
     }
+    
+    private double calculaRaio() {
+      double deltaX = final.X - inicial.X;
+      double deltaY = final.Y - inicial.Y;
+      double deltaZ = final.Z - inicial.Z;
+      return Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+    }
 
     public void girarAntiHorario() {
-      System.Console.WriteLine(inicial);
-      System.Console.WriteLine(final);
-      final = Matematica.GerarPtoDaCircunferencia((calculaAngulo() + 1), calculaRaio());
-      // final.X + calculaRaio()
+      final = Matematica.GerarPtoDaCircunferencia(calculaAngulo() + 1, calculaRaio());
+      final.X += inicial.X;
+      final.Y += inicial.Y;
     }
 
     public void girarHorario() {
-      final = Matematica.GerarPtoDaCircunferencia((calculaAngulo() - 1), calculaRaio());
+      final = Matematica.GerarPtoDaCircunferencia(calculaAngulo() - 1, calculaRaio());
+      final.X += inicial.X;
+      final.Y += inicial.Y;
     }
+
     public void aumentar() {
       final.X++;
       final.Y++;
     }
     public void diminuir() {
+      if (Math.Abs(final.X - inicial.X) < 2)
+        return;
       final.X--;
       final.Y--;
     }
@@ -54,15 +65,6 @@ namespace CG_N2
     public void moverBaixo() {
       final.Y--;
       inicial.Y--;
-    }
-
-    private double calculaRaio() {
-      double deltaX = final.X - inicial.X;
-      double deltaY = final.Y - inicial.Y;
-      double deltaZ = final.Z - inicial.Z;
-
-      // return Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-      return 100;
     }
 
     protected override void DesenharObjeto()
