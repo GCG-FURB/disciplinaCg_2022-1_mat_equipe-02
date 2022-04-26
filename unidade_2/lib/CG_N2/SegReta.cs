@@ -41,30 +41,16 @@ namespace CG_N2
     }
 
     public void aumentar() {
-      if (final.X < inicial.X) {
-        final.X -= Math.Abs(Math.Cos(calculaAngulo()));
-      } else {
-        final.X += Math.Abs(Math.Cos(calculaAngulo()));
-      }
-      if(final.Y < inicial.Y) {
-        final.Y -= Math.Abs(Math.Sin(calculaAngulo()));
-      } else {
-        final.Y += Math.Abs(Math.Sin(calculaAngulo()));
-      }
+      final = Matematica.GerarPtoDaCircunferencia(calculaAngulo(), calculaRaio() + 1);
+      final.X += inicial.X;
+      final.Y += inicial.Y;
     }
     public void diminuir() {
-      if (Math.Abs(final.X - inicial.X) < 8 && Math.Abs(final.Y - inicial.Y) < 8)
+      if (Math.Abs(final.X - inicial.X) < 3 && Math.Abs(final.Y - inicial.Y) < 3)
         return;
-      if (final.X < inicial.X) {
-        final.X += Math.Abs(Math.Cos(calculaAngulo()));
-      } else {
-        final.X -= Math.Abs(Math.Cos(calculaAngulo()));
-      }
-      if(final.Y < inicial.Y) {
-        final.Y += Math.Abs(Math.Sin(calculaAngulo()));
-      } else {
-        final.Y -= Math.Abs(Math.Sin(calculaAngulo()));
-      }
+      final = Matematica.GerarPtoDaCircunferencia(calculaAngulo(), calculaRaio() - 1);
+      final.X += inicial.X;
+      final.Y += inicial.Y;
     }
     public void moverDireita() {
       final.X++;
