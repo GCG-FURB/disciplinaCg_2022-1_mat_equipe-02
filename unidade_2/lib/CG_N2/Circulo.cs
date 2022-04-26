@@ -32,7 +32,7 @@ namespace CG_N2
 
     protected override void DesenharObjeto()
     {
-      GL.PointSize(8);
+      GL.PointSize(6);
       GL.Begin(PrimitiveType.Points);
 
       foreach (Ponto4D pto in pontosLista)
