@@ -175,15 +175,22 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
       Console.Write("Ponto:"+varX+";");
       Console.WriteLine(varY);
     }
-    
+        protected bool press = false;
     protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-      while(this.Mouse.ButtonDown(MouseButton.Right)){
-        if(e.Mouse.IsButtonUp(MouseButton.Left)){
-          break;
-        }
+      press = true;
+      atualizacentro();
+    }
+
+    protected override void OnMouseUp(MouseButtonEventArgs e){
+      press = false;
+    }
+
+    private void atualizacentro(){
+      while(press){
+        Console.Write("-");
       }
-      Console.WriteLine("Cabo -------------------------------------------------");
+      Console.WriteLine("Fim--------------------");
     }
 
 #if CG_Gizmo
