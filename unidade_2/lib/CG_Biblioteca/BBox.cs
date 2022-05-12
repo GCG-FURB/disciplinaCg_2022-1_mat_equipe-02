@@ -49,7 +49,6 @@ namespace CG_Biblioteca
         if (z > maiorZ) maiorZ = z;
       }
     }
-
     public void ProcessarCentro()
     {
       centro.X = (maiorX + menorX) / 2;

@@ -49,6 +49,9 @@ namespace CG_N2
     private float[] backgroundColors = new float[4];
     private bool backgroundAlterado;
     int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
+    int varX,varY; //deslocamento do mouse
+    Circulo cir = new Circulo('a',null,new Ponto4D(0,0),100,80);
+    BBox box = new BBox(-100,-100,0,100,100);
     private bool mouseMoverPto = false;
 #if CG_Privado
     private Privado_SegReta obj_SegReta;
@@ -131,6 +134,9 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
       GL.Clear(ClearBufferMask.ColorBufferBit);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadIdentity();
+      
+      
+      box.Desenhar();
 #if CG_Gizmo      
       Sru3D();
 #endif
@@ -161,12 +167,23 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
     //TODO: não está considerando o NDC
     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
-      mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inverti eixo Y
-      if (mouseMoverPto && (objetoSelecionado != null))
-      {
-        objetoSelecionado.PontosUltimo().X = mouseX;
-        objetoSelecionado.PontosUltimo().Y = mouseY;
+      int mouseXatual = e.Position.X; int mouseYatual = 600 - e.Position.Y; // Inverti eixo Y
+      varX = mouseXatual - mouseX;
+      varY = mouseYatual - mouseY;
+      mouseX = mouseXatual;
+      mouseY = mouseYatual;
+      Console.Write("Ponto:"+varX+";");
+      Console.WriteLine(varY);
+    }
+    
+    protected override void OnMouseDown(MouseButtonEventArgs e)
+    {
+      while(this.Mouse.ButtonDown(MouseButton.Right)){
+        if(e.Mouse.IsButtonUp(MouseButton.Left)){
+          break;
+        }
       }
+      Console.WriteLine("Cabo -------------------------------------------------");
     }
 
 #if CG_Gizmo

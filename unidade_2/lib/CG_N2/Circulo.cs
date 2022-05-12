@@ -43,6 +43,11 @@ namespace CG_N2
       
       GL.End();
     }
+    public void atualizacentro(double x,double y){
+      centro.X += x;
+      centro.Y += y;
+      criarPontosCircunferencia();
+    }
 
   }
 }
