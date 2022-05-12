@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\lib\CG_Biblioteca\CG_Biblioteca.csproj" />
+    <ProjectReference Include="..\lib\CG_N2\CG_N2.csproj" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="*" />
+    <PackageReference Include="OpenTK" Version="*" />
+    <PackageReference Include="System.Drawing.Common" Version="*" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>CG_N2_6</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
