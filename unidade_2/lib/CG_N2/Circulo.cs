@@ -19,6 +19,7 @@ namespace CG_N2
 
     private void criarPontosCircunferencia()
     {
+      base.PontosRemoverTodos();
       double angulo = 0;
       for(int i = 0; i < quantidadePontos; i++)
       {
