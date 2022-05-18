@@ -49,6 +49,8 @@ namespace CG_N2
     private Circulo circuloPequeno;
     private Circulo circuloGrande;
 
+    private Retangulo retanguloBox;
+
     private float[] backgroundColors = new float[4];
     private bool backgroundAlterado;
     int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
@@ -155,7 +157,7 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
         mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
       else if (e.Key == Key.J)
       {
-        circuloPequeno.atualizacentro(varX,varY,circuloGrande);
+        circuloPequeno.atualizacentro(varX,varY,circuloGrande,retanguloBox);
         varX = 0;
         varY = 0;
       }
@@ -178,28 +180,16 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
       mouseX = mouseXatual;
       mouseY = mouseYatual;
     }
-    public void switBBox(){
-      if(bBoxDesenhar == false){
-        bBoxDesenhar = true;
-      }else{
-        bBoxDesenhar = false;
-      }
-    }
-
-    public void iniciarCirculos(Circulo pequeno,Circulo grande){
+    public void Objetos7(Circulo pequeno,Circulo grande,Retangulo ret){
       this.circuloPequeno = pequeno;
       this.circuloGrande = grande;
-      objetoSelecionado = grande;
+      this.retanguloBox = ret;
     }
 
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e){
       if(e.Key == Key.J){
         circuloPequeno.reset();
       }
-    }
-    
-    protected void at(){
-      circuloPequeno.atualizacentro(varX,varY,circuloGrande);
     }
 
 #if CG_Gizmo

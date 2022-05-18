@@ -56,19 +56,19 @@ namespace CG_N2
         GL.End();
       }
     }
-    public void atualizacentro(double x,double y,Circulo ciculoGrande){
+    public void atualizacentro(double x,double y,Circulo ciculoGrande,Retangulo ret){
       double novoX  = centro.X + x;
       double novoY = centro.Y + y;
       double raioteste = Math.Pow(novoX -ciculoGrande.centro.X,2)+Math.Pow(novoY -ciculoGrande.centro.Y,2);
       if(raioteste <= ciculoGrande.raio2 && raioteste  >=ciculoGrande.raio2-150)
       {
-        ciculoGrande.BBox.Verifica(novoX,novoY,true);
+        ret.verificaBBox(novoX,novoY,true);
         this.centro.X = novoX;
         this.centro.Y = novoY;
         criarPontosCircunferencia();
       }
       else if(raioteste < ciculoGrande.raio2-150){
-        ciculoGrande.BBox.Verifica(novoX,novoY,false);
+        ret.verificaBBox(novoX,novoY,false);
         this.centro.X = novoX;
         this.centro.Y = novoY;
         criarPontosCircunferencia();
@@ -81,17 +81,15 @@ namespace CG_N2
     }
     public int getRaio => raio;
 
+    public double getRaio2 => raio2;
+
+    public Ponto4D getCentro => centro;
     public void switchCentro(){
       if(desenhaCentro == false){
         desenhaCentro = true;
       }else{
         desenhaCentro = false;
       }
-    }
-
-    public void expandeBBox(){
-      double cateto  = Math.Sqrt(raio2/2);
-      this.BBox.mudarPontos(new Ponto4D(centro.X - cateto, centro.X - cateto),new Ponto4D(centro.X + cateto, centro.X + cateto));
     }
 
     public void reset(){

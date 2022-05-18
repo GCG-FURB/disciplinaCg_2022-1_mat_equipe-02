@@ -11,12 +11,14 @@ namespace CG_N2
 {
   public class Retangulo : ObjetoGeometria
   {
+    private Cor[] paleta = {new Cor(178,102,255),new Cor(255,255,50),new Cor(50,255,255)};
     public Retangulo(char rotulo, Objeto paiRef, Ponto4D ptoInfEsq, Ponto4D ptoSupDir) : base(rotulo, paiRef)
     {
       base.PontosAdicionar(ptoInfEsq);
       base.PontosAdicionar(new Ponto4D(ptoSupDir.X, ptoInfEsq.Y));
       base.PontosAdicionar(ptoSupDir);
       base.PontosAdicionar(new Ponto4D(ptoInfEsq.X, ptoSupDir.Y));
+      base.ObjetoCor = paleta[0];
     }
 
     protected override void DesenharObjeto()
@@ -42,6 +44,19 @@ namespace CG_N2
       return (retorno);
     }
 #endif
-
+    public void verificaBBox(double x, double y,bool limit){
+      int aux = this.BBox.Verifica(x,y,limit);
+      switch (aux){
+      case 0:
+        this.ObjetoCor = paleta[0];
+      break;
+      case 1:
+        this.ObjetoCor = paleta[1];
+      break;
+      case 2:
+        this.ObjetoCor = paleta[2];
+      break;
+      }
+    }
   }
 }
