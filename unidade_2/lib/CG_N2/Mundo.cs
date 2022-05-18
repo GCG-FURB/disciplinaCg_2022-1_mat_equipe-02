@@ -154,7 +154,11 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
       else if (e.Key == Key.V)
         mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
       else if (e.Key == Key.J)
+      {
         circuloPequeno.atualizacentro(varX,varY,circuloGrande);
+        varX = 0;
+        varY = 0;
+      }
       else if (e.Key == Key.U)
         Console.WriteLine("Dolinho");
       else if (customKeys.Count > 0) {
