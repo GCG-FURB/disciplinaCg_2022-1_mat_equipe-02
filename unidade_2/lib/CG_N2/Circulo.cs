@@ -1,5 +1,6 @@
 using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
+using System;
 
 namespace CG_N2
 {
@@ -7,13 +8,21 @@ namespace CG_N2
   {
 
     int raio;
+
+    bool desenhaCentro = false;
+    double raio2;
     int quantidadePontos;
     Ponto4D centro;
+
+    double x,y;
     public Circulo(char rotulo, Objeto paiRef, Ponto4D centro, int raio, int quantidadePontos) : base(rotulo, paiRef)
     {
       this.quantidadePontos = quantidadePontos;
       this.raio = raio;
+      this.raio2 = raio*raio;
       this.centro = centro;
+      this.x = centro.X;
+      this.y = centro.Y;
       criarPontosCircunferencia();
     }
 
@@ -40,14 +49,55 @@ namespace CG_N2
       {
         GL.Vertex2(pto.X, pto.Y);
       }
-      
       GL.End();
+      if(desenhaCentro){
+        GL.Begin(PrimitiveType.Points);
+        GL.Vertex2(centro.X, centro.Y);
+        GL.End();
+      }
     }
-    public void atualizacentro(double x,double y){
-      centro.X += x;
-      centro.Y += y;
-      criarPontosCircunferencia();
+    public void atualizacentro(double x,double y,Circulo ciculoGrande){
+      double novoX  = centro.X + x;
+      double novoY = centro.Y + y;
+      double raioteste = Math.Pow(novoX -ciculoGrande.centro.X,2)+Math.Pow(novoY -ciculoGrande.centro.Y,2);
+      if(raioteste <= ciculoGrande.raio2 && raioteste  >=ciculoGrande.raio2-150)
+      {
+        ciculoGrande.BBox.Verifica(novoX,novoY,true);
+        this.centro.X = novoX;
+        this.centro.Y = novoY;
+        criarPontosCircunferencia();
+      }
+      else if(raioteste < ciculoGrande.raio2-150){
+        ciculoGrande.BBox.Verifica(novoX,novoY,false);
+        this.centro.X = novoX;
+        this.centro.Y = novoY;
+        criarPontosCircunferencia();
+      }
+      else
+      {
+
+      }
+
+    }
+    public int getRaio => raio;
+
+    public void switchCentro(){
+      if(desenhaCentro == false){
+        desenhaCentro = true;
+      }else{
+        desenhaCentro = false;
+      }
     }
 
+    public void expandeBBox(){
+      double cateto  = Math.Sqrt(raio2/2);
+      this.BBox.mudarPontos(new Ponto4D(centro.X - cateto, centro.X - cateto),new Ponto4D(centro.X + cateto, centro.X + cateto));
+    }
+
+    public void reset(){
+      this.centro.X = this.x;
+      this.centro.Y = this.y;
+      criarPontosCircunferencia();
+    }
   }
 }

@@ -46,12 +46,13 @@ namespace CG_N2
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
 
+    private Circulo circuloPequeno;
+    private Circulo circuloGrande;
+
     private float[] backgroundColors = new float[4];
     private bool backgroundAlterado;
     int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
     int varX,varY; //deslocamento do mouse
-    Circulo cir = new Circulo('a',null,new Ponto4D(0,0),100,80);
-    BBox box = new BBox(-100,-100,0,100,100);
     private bool mouseMoverPto = false;
 #if CG_Privado
     private Privado_SegReta obj_SegReta;
@@ -62,7 +63,6 @@ public void setCameraPosition(double xMin, double yMin, double xMax, double yMax
 {
   camera.xmin = xMin; camera.xmax = xMax; camera.ymin = yMin; camera.ymax = yMax;
 }
-
 public void addCustomKey(Key key, Action callback)
 {
   this.customKeys.Add(key, callback);
@@ -135,8 +135,6 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadIdentity();
       
-      
-      box.Desenhar();
 #if CG_Gizmo      
       Sru3D();
 #endif
@@ -153,44 +151,51 @@ public void setBackgroundColor(float red, float green, float blue, float alpha) 
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
-
+      else if (e.Key == Key.V)
+        mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
+      else if (e.Key == Key.J)
+        circuloPequeno.atualizacentro(varX,varY,circuloGrande);
+      else if (e.Key == Key.U)
+        Console.WriteLine("Dolinho");
       else if (customKeys.Count > 0) {
           if(customKeys.ContainsKey(e.Key))
               customKeys[e.Key]();
         }
-      else if (e.Key == Key.V)
-        mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
       else
         Console.WriteLine(" __ Tecla não implementada.");
     }
 
     //TODO: não está considerando o NDC
-    protected override void OnMouseMove(MouseMoveEventArgs e)
+     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
       int mouseXatual = e.Position.X; int mouseYatual = 600 - e.Position.Y; // Inverti eixo Y
       varX = mouseXatual - mouseX;
       varY = mouseYatual - mouseY;
       mouseX = mouseXatual;
       mouseY = mouseYatual;
-      Console.Write("Ponto:"+varX+";");
-      Console.WriteLine(varY);
     }
-        protected bool press = false;
-    protected override void OnMouseDown(MouseButtonEventArgs e)
-    {
-      press = true;
-      atualizacentro();
-    }
-
-    protected override void OnMouseUp(MouseButtonEventArgs e){
-      press = false;
-    }
-
-    private void atualizacentro(){
-      while(press){
-        Console.Write("-");
+    public void switBBox(){
+      if(bBoxDesenhar == false){
+        bBoxDesenhar = true;
+      }else{
+        bBoxDesenhar = false;
       }
-      Console.WriteLine("Fim--------------------");
+    }
+
+    public void iniciarCirculos(Circulo pequeno,Circulo grande){
+      this.circuloPequeno = pequeno;
+      this.circuloGrande = grande;
+      objetoSelecionado = grande;
+    }
+
+    protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e){
+      if(e.Key == Key.J){
+        circuloPequeno.reset();
+      }
+    }
+    
+    protected void at(){
+      circuloPequeno.atualizacentro(varX,varY,circuloGrande);
     }
 
 #if CG_Gizmo

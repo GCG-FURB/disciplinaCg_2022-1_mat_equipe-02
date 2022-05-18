@@ -9,6 +9,8 @@ namespace CG_Biblioteca
 {
   public class BBox
   {
+    private Cor[] paleta = {new Cor(178,102,255),new Cor(255,255,50),new Cor(50,255,255)};
+    private int indiceCor = 0;
     private double menorX, menorY, menorZ, maiorX, maiorY, maiorZ;
     private Ponto4D centro = new Ponto4D();
     public BBox(double menorX = 0, double menorY = 0, double menorZ = 0, double maiorX = 0, double maiorY = 0, double maiorZ = 0)
@@ -56,9 +58,36 @@ namespace CG_Biblioteca
       centro.Z = (maiorZ + menorZ) / 2;
     }
 
+    public void Verifica(double x, double y,bool limit)
+    {
+      if(limit == false)
+      {
+        if (x < menorX)
+          indiceCor = 1;
+        else if (x > maiorX) 
+          indiceCor = 1;
+        else if (y < menorY)
+          indiceCor = 1;
+        else if (y > maiorY) 
+        indiceCor = 1;
+        else
+          indiceCor = 0;
+      }
+      else
+      {
+        indiceCor = 2;
+      }
+     
+    }
+
+    public void mudarPontos(Ponto4D nenor,Ponto4D maior){
+      this.menorX = nenor.X; this.menorY = nenor.Y; this.menorZ = nenor.Z;
+      this.maiorX = maior.X; this.maiorY = maior.Y; this.maiorZ = maior.Z;
+    }
+
     public void Desenhar()
     {
-      GL.Color3(1.0f, 1.0f, 0.0f);
+      GL.Color3(paleta[indiceCor].CorR, paleta[indiceCor].CorG, paleta[indiceCor].CorB);
 
       GL.PointSize(5);
       GL.Begin(PrimitiveType.Points);
