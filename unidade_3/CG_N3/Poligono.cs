@@ -58,5 +58,8 @@ namespace gcgcg
         base.PrimitivaTipo = PrimitiveType.LineStrip;
       }
     }
+    public void finalizaDesenho(){
+      pontosPoligono.Remove(ultimoPonto);
+    }
   }
 }

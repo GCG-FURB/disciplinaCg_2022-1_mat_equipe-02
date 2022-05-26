@@ -137,6 +137,11 @@ namespace gcgcg
           adicionarPontoPoligono();
         }
       }
+      if(e.Button == MouseButton.Right){
+        objetoSelecionado.finalizaDesenho();
+        objetoSelecionado = null;
+        ePrimeiro = true;
+      }
     }
 
     protected void criarPoligonoNaTela(){
