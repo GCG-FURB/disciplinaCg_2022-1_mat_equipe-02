@@ -26,6 +26,7 @@ namespace gcgcg
       base.PontosAdicionar(A.ponto);
       pontosPoligono.Add(A);
       }*/
+      base.PrimitivaTipo = PrimitiveType.LineStrip;
       pontosPoligono.Add(ponto);
       char id = Utilitario.charProximo(rotulo);
       Ponto ponto2 = new Ponto(id,null,ponto.getX(),ponto.getY());
@@ -48,6 +49,14 @@ namespace gcgcg
     }
     public void adicionarPonto(Ponto p){
       pontosPoligono.Add(p);
+      ultimoPonto = p;
+    }
+    public void alternaPrimitiva(){
+      if(base.PrimitivaTipo == PrimitiveType.LineStrip){
+        base.PrimitivaTipo = PrimitiveType.LineLoop;
+      }else{
+        base.PrimitivaTipo = PrimitiveType.LineStrip;
+      }
     }
   }
 }

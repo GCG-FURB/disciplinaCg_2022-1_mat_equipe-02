@@ -49,7 +49,7 @@ namespace gcgcg
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
-      camera.xmin = 0; camera.xmax = 600; camera.ymin = 0; camera.ymax = 600;
+      camera.xmin = 0; camera.xmax = 750; camera.ymin = 0; camera.ymax = 750;
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
@@ -93,6 +93,9 @@ namespace gcgcg
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
+      else if (e.Key == Key.T){
+        objetoSelecionado.alternaPrimitiva();
+      }
       else if (e.Key == Key.E)
       {
         Console.WriteLine("--- Objetos / Pontos: ");
@@ -114,11 +117,14 @@ namespace gcgcg
     //TODO: não está considerando o NDC
     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
-      mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inverti eixo Y
-      Console.Write("X:");
+      mouseX = e.Position.X; mouseY = 750 - e.Position.Y; // Inverti eixo Y7
+      /*Console.Write("X:");
       Console.Write(mouseX);
       Console.Write(" Y:");
-      Console.WriteLine(mouseY);
+      Console.WriteLine(mouseY);*/
+      if(objetoSelecionado != null){
+        objetoSelecionado.atualizaUltimoPonto(mouseX,mouseY);
+      }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
