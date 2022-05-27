@@ -96,6 +96,21 @@ namespace gcgcg
       else if (e.Key == Key.T){
         objetoSelecionado.alternaPrimitiva();
       }
+      else if (e.Key == Key.R){
+      objetoSelecionado.ObjetoCor.CorR = 255;
+      objetoSelecionado.ObjetoCor.CorG = 0;
+      objetoSelecionado.ObjetoCor.CorB = 0;
+      }
+      else if (e.Key == Key.G){
+      objetoSelecionado.ObjetoCor.CorR = 0;
+      objetoSelecionado.ObjetoCor.CorG = 255;
+      objetoSelecionado.ObjetoCor.CorB = 0;
+      }
+      else if (e.Key == Key.B){
+      objetoSelecionado.ObjetoCor.CorR = 0;
+      objetoSelecionado.ObjetoCor.CorG = 0;
+      objetoSelecionado.ObjetoCor.CorB = 255;
+      }
       else if (e.Key == Key.E)
       {
         Console.WriteLine("--- Objetos / Pontos: ");
