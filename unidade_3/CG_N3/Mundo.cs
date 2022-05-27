@@ -93,8 +93,13 @@ namespace gcgcg
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
-      else if (e.Key == Key.T){
+      else if (e.Key == Key.S){
         objetoSelecionado.alternaPrimitiva();
+      }
+      else if (e.Key == Key.S){
+        if(objetoSelecionado == null){
+          
+        }
       }
       else if (e.Key == Key.R){
       objetoSelecionado.ObjetoCor.CorR = 255;
