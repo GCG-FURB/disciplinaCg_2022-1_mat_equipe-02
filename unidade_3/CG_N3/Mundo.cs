@@ -99,6 +99,7 @@ namespace gcgcg
       else if (e.Key == Key.S){
         if(objetoSelecionado == null){
           
+          //Dolinho
         }
       }
       else if (e.Key == Key.R){
