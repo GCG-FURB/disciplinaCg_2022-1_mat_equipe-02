@@ -136,6 +136,7 @@ namespace gcgcg
       /*Console.Write("X:");
       Console.Write(mouseX);
       Console.Write(" Y:");
+      teste
       Console.WriteLine(mouseY);*/
       if(objetoSelecionado != null){
         objetoSelecionado.atualizaUltimoPonto(mouseX,mouseY);
