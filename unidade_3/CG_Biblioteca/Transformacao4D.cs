@@ -46,12 +46,12 @@ namespace CG_Biblioteca
 
     /// Atribui os valores de Translacao (tx,ty,tz) a matriz de Transformacao.
     /// Elemento Neutro eh 0 (zero).
-    public void AtribuirTranslacao(double tx, double ty, double tz)
+    public void AtribuirTranslacao(double dx, double dy, double dz)
     {
       AtribuirIdentidade();
-      matriz[12] = tx;
-      matriz[13] = ty;
-      matriz[14] = tz;
+      matriz[12] = dx;
+      matriz[13] = dy;
+      matriz[14] = dz;
     }
 
     /// Atribui o valor de Escala (Ex,Ey,Ez) a matriz de Transformacao.
