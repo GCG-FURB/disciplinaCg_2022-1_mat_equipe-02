@@ -160,9 +160,11 @@ namespace gcgcg
         }
       }
       if(e.Button == MouseButton.Right){
-        objetoSelecionado.finalizaDesenho();
-        objetoSelecionado = null;
-        ePrimeiro = true;
+        if(objetoSelecionado != null) {
+          objetoSelecionado.finalizaDesenho();
+          objetoSelecionado = null;
+          ePrimeiro = true;
+        }
       }
     }
 
