@@ -36,6 +36,7 @@ namespace gcgcg
 
     protected override void DesenharObjeto()
     {
+      GL.LineWidth(8);
       GL.Begin(base.PrimitivaTipo);
       foreach (Ponto pto in pontosPoligono)
       {

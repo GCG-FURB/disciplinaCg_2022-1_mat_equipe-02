@@ -49,7 +49,7 @@ namespace gcgcg
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
-      camera.xmin = 0; camera.xmax = 750; camera.ymin = 0; camera.ymax = 750;
+      camera.xmin = 0; camera.xmax = 600; camera.ymin = 0; camera.ymax = 600;
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
@@ -98,24 +98,29 @@ namespace gcgcg
       }
       else if (e.Key == Key.S){
         if(objetoSelecionado == null){
-          
-          //Dolinho
+
         }
       }
       else if (e.Key == Key.R){
-      objetoSelecionado.ObjetoCor.CorR = 255;
-      objetoSelecionado.ObjetoCor.CorG = 0;
-      objetoSelecionado.ObjetoCor.CorB = 0;
+        if(objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 255;
+          objetoSelecionado.ObjetoCor.CorG = 0;
+          objetoSelecionado.ObjetoCor.CorB = 0;
+        }
       }
       else if (e.Key == Key.G){
-      objetoSelecionado.ObjetoCor.CorR = 0;
-      objetoSelecionado.ObjetoCor.CorG = 255;
-      objetoSelecionado.ObjetoCor.CorB = 0;
+        if(objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 0;
+          objetoSelecionado.ObjetoCor.CorG = 255;
+          objetoSelecionado.ObjetoCor.CorB = 0;
+        }
       }
       else if (e.Key == Key.B){
-      objetoSelecionado.ObjetoCor.CorR = 0;
-      objetoSelecionado.ObjetoCor.CorG = 0;
-      objetoSelecionado.ObjetoCor.CorB = 255;
+        if(objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 0;
+          objetoSelecionado.ObjetoCor.CorG = 0;
+          objetoSelecionado.ObjetoCor.CorB = 255;
+        }
       }
       else if (e.Key == Key.E)
       {
@@ -130,27 +135,22 @@ namespace gcgcg
         bBoxDesenhar = !bBoxDesenhar;
 #endif
       else if (e.Key == Key.V)
-        mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
+        mouseMoverPto = !mouseMoverPto;
       else
         Console.WriteLine(" __ Tecla não implementada.");
     }
 
-    //TODO: não está considerando o NDC
     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
-      mouseX = e.Position.X; mouseY = 750 - e.Position.Y; // Inverti eixo Y7
-      /*Console.Write("X:");
-      Console.Write(mouseX);
-      Console.Write(" Y:");
-      teste
-      Console.WriteLine(mouseY);*/
-      if(objetoSelecionado != null){
+      mouseX = e.Position.X; mouseY = 600 - e.Position.Y;
+      if(objetoSelecionado != null)
+      {
         objetoSelecionado.atualizaUltimoPonto(mouseX,mouseY);
       }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-      if(e.Button == MouseButton.Left){
+      if(e.Button == MouseButton.Left) {
         if(ePrimeiro){
           criarPoligonoNaTela();
           ePrimeiro = false;
@@ -168,17 +168,17 @@ namespace gcgcg
 
     protected void criarPoligonoNaTela(){
       objetoId = Utilitario.charProximo(objetoId);
-      Ponto jose = new(objetoId,null,mouseX,mouseY);
+      Ponto primeiroPonto = new(objetoId,null,mouseX,mouseY);
       objetoId = Utilitario.charProximo(objetoId);
-      Poligono poligono = new(objetoId,null,jose);
+      Poligono poligono = new(objetoId,null,primeiroPonto);
       objetosLista.Add(poligono);
       objetoSelecionado = poligono;
     }
 
     private void adicionarPontoPoligono(){
       objetoId = Utilitario.charProximo(objetoId);
-      Ponto aurelio = new(objetoId,null,mouseX,mouseY);
-      objetoSelecionado.adicionarPonto(aurelio);
+      Ponto novoPonto = new(objetoId,null,mouseX,mouseY);
+      objetoSelecionado.adicionarPonto(novoPonto);
     }
 #if CG_Gizmo
     private void Sru3D()
