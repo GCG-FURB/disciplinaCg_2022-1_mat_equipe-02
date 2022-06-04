@@ -6,10 +6,8 @@
 #define CG_OpenGL
 // #define CG_DirectX
 
-using System;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
-using CG_Biblioteca;
 
 namespace gcgcg
 {
@@ -26,6 +24,10 @@ namespace gcgcg
       base.PontosAdicionar(A.ponto);
       pontosPoligono.Add(A);
       }*/
+      if(paiRef != null && this.GetType() == paiRef.GetType()) {
+        paiRef.FilhoAdicionar(this);
+        copiarPropriedadesPai((Poligono) paiRef, rotulo);
+      }
       base.PrimitivaTipo = PrimitiveType.LineStrip;
       pontosPoligono.Add(ponto);
       char id = Utilitario.charProximo(rotulo);
@@ -34,9 +36,18 @@ namespace gcgcg
       ultimoPonto = ponto2;
     }
 
+    private void copiarPropriedadesPai(Poligono pai, char id) {
+      foreach(Ponto ponto in pai.pontosPoligono) {
+        char objetoId = Utilitario.charProximo(id);
+        Ponto novoPonto = new(objetoId,null,ponto.getX(),ponto.getY());
+        adicionarPonto(novoPonto);
+      }
+      this.ObjetoCor = pai.ObjetoCor;
+    }
+
     protected override void DesenharObjeto()
     {
-      GL.LineWidth(8);
+      GL.LineWidth(6);
       GL.Begin(base.PrimitivaTipo);
       foreach (Ponto pto in pontosPoligono)
       {
@@ -48,6 +59,11 @@ namespace gcgcg
       ultimoPonto.setX(x);
       ultimoPonto.setY(y);
     }
+
+  public int lenght() {
+    return pontosPoligono.Count;
+  }
+
     public void adicionarPonto(Ponto p){
       pontosPoligono.Add(p);
       ultimoPonto = p;
