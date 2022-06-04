@@ -1,12 +1,3 @@
-/**
-  Autor: Dalton Solano dos Reis
-**/
-
-#define CG_Debug
-#define CG_OpenGL
-// #define CG_DirectX
-
-using System;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using CG_Biblioteca;
@@ -16,15 +7,14 @@ namespace gcgcg
   internal class Poligono : ObjetoGeometria
   {
     private Ponto4D  ultimoPonto;
-    public Poligono(char rotulo, Objeto paiRef,Ponto4D ponto) : base(rotulo, paiRef)
+    public Poligono(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef)
     {
-      /*int[] vet = new int[10]{200,300,200,500,400,500,400,300,300,400};
-      for(int i = 0;i < 9;i+=2){
-      char id = Utilitario.charProximo(rotulo);
-      Ponto A = new Ponto(id,paiRef,vet[i],vet[i+1]);
-      base.PontosAdicionar(A.ponto);
-      pontosPoligono.Add(A);
+      /*
+      if(paiRef != null && this.GetType() == paiRef.GetType()) {
+        paiRef.FilhoAdicionar(this);
+        copiarPropriedadesPai((Poligono) paiRef, rotulo);
       }*/
+
       base.PrimitivaTipo = PrimitiveType.LineStrip;
       PontosAdicionar(ponto);
       Ponto4D a = new(ponto.X,ponto.Y);
@@ -32,8 +22,17 @@ namespace gcgcg
       ultimoPonto =  PontosUltimo();
     }
 
+    /*private void copiarPropriedadesPai(Poligono pai, char id) {
+      foreach(Ponto ponto in pai.pontosPoligono) {
+        char objetoId = Utilitario.charProximo(id);
+        Ponto novoPonto = new(objetoId,null,ponto.getX(),ponto.getY());
+        adicionarPonto(novoPonto);
+      }
+      this.ObjetoCor = pai.ObjetoCor;
+    }*/
     protected override void DesenharObjeto()
     {
+      GL.LineWidth(6);
       GL.Begin(base.PrimitivaTipo);
       foreach (Ponto4D pto in pontosLista)
       {
@@ -48,6 +47,9 @@ namespace gcgcg
     public void adicionarPonto(Ponto4D p){
       PontosAdicionar(p);
       ultimoPonto = PontosUltimo();
+    }
+    public int lenght() {
+      return pontosLista.Count;
     }
     public void alternaPrimitiva(){
       if(base.PrimitivaTipo == PrimitiveType.LineStrip){
