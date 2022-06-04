@@ -50,5 +50,8 @@ namespace gcgcg
     {
       this.objetosLista.Remove(filho);
     }
+    public BBox GetBBox(){
+      return bBox;
+    }
   }
 }

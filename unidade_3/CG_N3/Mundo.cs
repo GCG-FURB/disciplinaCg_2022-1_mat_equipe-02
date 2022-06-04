@@ -31,14 +31,18 @@ namespace gcgcg
     }
 
     private CameraOrtho camera = new CameraOrtho();
-    protected List<Objeto> objetosLista = new List<Objeto>();
+    protected List<Poligono> objetosLista = new List<Poligono>();
     private Poligono objetoSelecionado = null;
+
+    private Ponto pont = new Ponto('#',null,100,100);
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
-    int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
+    double mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
     private bool mouseMoverPto = false;
 
     private bool ePrimeiro = true;
+
+    private bool adicionar = false;
     private Retangulo obj_Retangulo;
     private Poligono obj_Poligono;
 #if CG_Privado
@@ -49,7 +53,7 @@ namespace gcgcg
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
-      camera.xmin = 0; camera.xmax = 750; camera.ymin = 0; camera.ymax = 750;
+      camera.xmin = 0; camera.xmax = 600; camera.ymin = 0; camera.ymax = 600;
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
@@ -61,6 +65,7 @@ namespace gcgcg
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
       base.OnUpdateFrame(e);
+      pont.PrimitivaTamanho = 5;
 #if CG_OpenGL
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
@@ -78,6 +83,7 @@ namespace gcgcg
 #if CG_Gizmo      
       Sru3D();
 #endif
+      pont.Desenhar();
       for (var i = 0; i < objetosLista.Count; i++)
         objetosLista[i].Desenhar();
 #if CG_Gizmo
@@ -96,11 +102,29 @@ namespace gcgcg
       else if (e.Key == Key.S){
         objetoSelecionado.alternaPrimitiva();
       }
-      else if (e.Key == Key.S){
-        if(objetoSelecionado == null){
-          
-          //Dolinho
+      else if (e.Key == Key.C){
+        if(objetoSelecionado != null){
+          objetosLista.Remove(objetoSelecionado);
+          objetoSelecionado = null;
         }
+      }
+      else if (e.Key == Key.Space){
+        if(adicionar){
+          adicionar = false;
+        }else{
+          adicionar = true;
+        }
+      }
+      else if (e.Key == Key.A){
+        bool a = false;
+        for (var i = 0; i < objetosLista.Count; i++){
+          a = objetosLista[i].foiSelecionado(mouseX,mouseY);
+          if(a){
+            objetoSelecionado = objetosLista[i];
+            Console.WriteLine(a);
+          }
+        }
+        
       }
       else if (e.Key == Key.R){
       objetoSelecionado.ObjetoCor.CorR = 255;
@@ -138,7 +162,8 @@ namespace gcgcg
     //TODO: não está considerando o NDC
     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
-      mouseX = e.Position.X; mouseY = 750 - e.Position.Y; // Inverti eixo Y7
+      mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inverti eixo Y7
+      pont.atualizarPonto(mouseX,mouseY);
       /*Console.Write("X:");
       Console.Write(mouseX);
       Console.Write(" Y:");
@@ -150,26 +175,29 @@ namespace gcgcg
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-      if(e.Button == MouseButton.Left){
-        if(ePrimeiro){
-          criarPoligonoNaTela();
-          ePrimeiro = false;
+      if(adicionar){
+        if(e.Button == MouseButton.Left){
+          if(ePrimeiro){
+            criarPoligonoNaTela();
+            ePrimeiro = false;
+          }
+          else{
+            adicionarPontoPoligono();
+          }
         }
-        else{
-          adicionarPontoPoligono();
+        if(e.Button == MouseButton.Right){
+          objetoSelecionado.finalizaDesenho();
+          objetoSelecionado = null;
+          ePrimeiro = true;
         }
+      }else{
+
       }
-      if(e.Button == MouseButton.Right){
-        objetoSelecionado.finalizaDesenho();
-        objetoSelecionado = null;
-        ePrimeiro = true;
-      }
+      
     }
 
     protected void criarPoligonoNaTela(){
-      objetoId = Utilitario.charProximo(objetoId);
-      Ponto jose = new(objetoId,null,mouseX,mouseY);
-      objetoId = Utilitario.charProximo(objetoId);
+      Ponto4D jose = new(mouseX,mouseY);
       Poligono poligono = new(objetoId,null,jose);
       objetosLista.Add(poligono);
       objetoSelecionado = poligono;
@@ -177,7 +205,7 @@ namespace gcgcg
 
     private void adicionarPontoPoligono(){
       objetoId = Utilitario.charProximo(objetoId);
-      Ponto aurelio = new(objetoId,null,mouseX,mouseY);
+      Ponto4D aurelio = new(mouseX,mouseY);
       objetoSelecionado.adicionarPonto(aurelio);
     }
 #if CG_Gizmo

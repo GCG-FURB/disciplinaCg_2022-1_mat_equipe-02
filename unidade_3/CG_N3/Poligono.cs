@@ -15,9 +15,8 @@ namespace gcgcg
 {
   internal class Poligono : ObjetoGeometria
   {
-    protected List<Ponto> pontosPoligono = new List<Ponto>();
-    private Ponto ultimoPonto;
-    public Poligono(char rotulo, Objeto paiRef,Ponto ponto) : base(rotulo, paiRef)
+    private Ponto4D  ultimoPonto;
+    public Poligono(char rotulo, Objeto paiRef,Ponto4D ponto) : base(rotulo, paiRef)
     {
       /*int[] vet = new int[10]{200,300,200,500,400,500,400,300,300,400};
       for(int i = 0;i < 9;i+=2){
@@ -27,29 +26,28 @@ namespace gcgcg
       pontosPoligono.Add(A);
       }*/
       base.PrimitivaTipo = PrimitiveType.LineStrip;
-      pontosPoligono.Add(ponto);
-      char id = Utilitario.charProximo(rotulo);
-      Ponto ponto2 = new Ponto(id,null,ponto.getX(),ponto.getY());
-      pontosPoligono.Add(ponto2);
-      ultimoPonto = ponto2;
+      PontosAdicionar(ponto);
+      Ponto4D a = new(ponto.X,ponto.Y);
+      PontosAdicionar(a);
+      ultimoPonto =  PontosUltimo();
     }
 
     protected override void DesenharObjeto()
     {
       GL.Begin(base.PrimitivaTipo);
-      foreach (Ponto pto in pontosPoligono)
+      foreach (Ponto4D pto in pontosLista)
       {
-        GL.Vertex2(pto.getX(), pto.getY());
+        GL.Vertex2(pto.X, pto.Y);
       }
       GL.End();
     }
     public void atualizaUltimoPonto(double x,double y){
-      ultimoPonto.setX(x);
-      ultimoPonto.setY(y);
+      ultimoPonto.X = x;
+      ultimoPonto.Y = y;
     }
-    public void adicionarPonto(Ponto p){
-      pontosPoligono.Add(p);
-      ultimoPonto = p;
+    public void adicionarPonto(Ponto4D p){
+      PontosAdicionar(p);
+      ultimoPonto = PontosUltimo();
     }
     public void alternaPrimitiva(){
       if(base.PrimitivaTipo == PrimitiveType.LineStrip){
@@ -59,7 +57,16 @@ namespace gcgcg
       }
     }
     public void finalizaDesenho(){
-      pontosPoligono.Remove(ultimoPonto);
+      PontosRemoverUltimo();
+    }
+    public bool foiSelecionado(double x,double y){
+      bool selecionado = false;
+      if(base.PrimitivaTipo == PrimitiveType.LineLoop){
+        selecionado = GetBBox().Verifica(x,y,pontosLista,false);
+      }else{
+        selecionado = GetBBox().Verifica(x,y,pontosLista,true);
+      }
+      return selecionado;
     }
   }
 }
