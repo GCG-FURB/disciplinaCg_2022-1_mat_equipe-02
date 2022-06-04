@@ -70,7 +70,7 @@ namespace gcgcg
       }
       return selecionado;
     }
-    Poligono poligonoSelecionado;
+    
     List<Poligono> poligonos = new List<Poligono>();
     public void removePoligono(int poligonoRemove){      
                 int i = 0;
