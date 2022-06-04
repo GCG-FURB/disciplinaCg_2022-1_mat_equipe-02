@@ -71,23 +71,7 @@ namespace gcgcg
       return selecionado;
     }
     
-    List<Poligono> poligonos = new List<Poligono>();
-    public void removePoligono(int poligonoRemove){      
-                int i = 0;
-                List<Poligono> novaPoligonos = new List<Poligono>();
-
-                foreach (Poligono p in poligonos)
-                {
-                    if (i != poligonoRemove)
-                    {
-                      novaPoligonos.Add(p);
-                    }
-                    else
-                    {
-                        
-                    }
-                    i++;
-                }
-            }
+    
+    
     }
   }
