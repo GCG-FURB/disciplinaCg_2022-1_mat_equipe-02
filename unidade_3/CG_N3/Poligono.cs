@@ -71,7 +71,9 @@ namespace gcgcg
       return selecionado;
     }
     
-    
+    public void translacaoPoligono() {
+      //AtribuirTranslacao();
+    }
     
     }
   }
