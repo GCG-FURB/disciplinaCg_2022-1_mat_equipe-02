@@ -5,7 +5,9 @@
 #define CG_Gizmo
 #define CG_Debug
 #define CG_OpenGL
+using System;
 
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 namespace CG_Biblioteca
 {
@@ -49,6 +51,49 @@ namespace CG_Biblioteca
       else
       {
         if (z > maiorZ) maiorZ = z;
+      }
+    }
+
+    public bool EstaDentro(double x, double y)
+    {
+      bool saida = true;
+      if (x < menorX){
+        saida = false;
+      }else if (x > maiorX){
+        saida = false;
+      }else if (y < menorY){
+        saida = false;
+      }else if (y > maiorY){
+        saida = false;
+      }
+      return saida;
+    }
+
+    public bool Verifica(double x, double  y, List<Ponto4D> pontos, bool aberto){
+      if(EstaDentro(x,y)){
+        int countInte = 0;
+        if(aberto){
+          for (var i = 0; i < pontos.Count-1; i++){
+            Console.WriteLine(i);
+            countInte += Matematica.Calcula(x,y,pontos[i],pontos[i+1]);
+          }
+        }else{
+          for (var i = 0; i < pontos.Count; i++){
+            if(i == pontos.Count-1){
+              countInte += Matematica.Calcula(x,y,pontos[i],pontos[0]);
+            }else{
+              countInte += Matematica.Calcula(x,y,pontos[i],pontos[i+1]);
+            }
+          }
+        }
+        Console.WriteLine(countInte);
+        if(countInte%2 == 0){
+          return false;
+        }else{
+          return true;
+        }
+      }else{
+        return false;
       }
     }
 

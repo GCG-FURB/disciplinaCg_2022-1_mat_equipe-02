@@ -25,11 +25,19 @@ namespace gcgcg
     public double getY(){
       return this.ponto.Y;
     }
+
+    public Ponto4D getPonto4D() {
+      return ponto;
+    }
     public void setX(double x){
       this.ponto.X = x;
     }
     public void setY(double y){
       this.ponto.Y = y;
+    }
+    public void atualizarPonto(double x, double y){
+      ponto.X = x;
+      ponto.Y = y;
     }
   }
 }

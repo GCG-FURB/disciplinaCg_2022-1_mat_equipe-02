@@ -1,14 +1,4 @@
-﻿/**
-  Autor: Dalton Solano dos Reis
-**/
-
-//#define CG_Privado // código do professor.
-#define CG_Gizmo  // debugar gráfico.
-//#define CG_Debug // debugar texto.
-#define CG_OpenGL // render OpenGL.
-//#define CG_DirectX // render DirectX.
-
-using System;
+﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
@@ -31,59 +21,49 @@ namespace gcgcg
     }
 
     private CameraOrtho camera = new CameraOrtho();
-    protected List<Objeto> objetosLista = new List<Objeto>();
+    protected List<Poligono> objetosLista = new List<Poligono>();
     private Poligono objetoSelecionado = null;
+
+    private Ponto pont = new Ponto('#',null,100,100);
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
-    int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
+    double mouseX, mouseY;
     private bool mouseMoverPto = false;
-
-    private bool ePrimeiro = true;
-    private Retangulo obj_Retangulo;
-    private Poligono obj_Poligono;
-#if CG_Privado
-    private Privado_SegReta obj_SegReta;
-    private Privado_Circulo obj_Circulo;
-#endif
+    private bool adicionar = false;
+    private bool ehDesenhoJaIniciado = false;
 
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
-      camera.xmin = 0; camera.xmax = 750; camera.ymin = 0; camera.ymax = 750;
+      camera.xmin = 0; camera.xmax = 600; camera.ymin = 0; camera.ymax = 600;
 
       Console.WriteLine(" --- Ajuda / Teclas: ");
       Console.WriteLine(" [  H     ] mostra teclas usadas. ");
 
-#if CG_OpenGL
+
       GL.ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-#endif
+
     }
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
       base.OnUpdateFrame(e);
-#if CG_OpenGL
+      pont.PrimitivaTamanho = 5;
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, camera.zmin, camera.zmax);
-#endif
+
     }
     protected override void OnRenderFrame(FrameEventArgs e)
     {
       base.OnRenderFrame(e);
-#if CG_OpenGL
+
       GL.Clear(ClearBufferMask.ColorBufferBit);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadIdentity();
-#endif
-#if CG_Gizmo      
-      Sru3D();
-#endif
       for (var i = 0; i < objetosLista.Count; i++)
         objetosLista[i].Desenhar();
-#if CG_Gizmo
       if (bBoxDesenhar && (objetoSelecionado != null))
         objetoSelecionado.BBox.Desenhar();
-#endif
       this.SwapBuffers();
     }
 
@@ -93,28 +73,53 @@ namespace gcgcg
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
-      else if (e.Key == Key.S){
+      else if (e.Key == Key.S) {
         objetoSelecionado.alternaPrimitiva();
       }
-      else if (e.Key == Key.S){
-        if(objetoSelecionado == null){
-          
+      else if (e.Key == Key.C){
+        if(objetoSelecionado != null){
+          objetosLista.Remove(objetoSelecionado);
+          objetoSelecionado = null;
         }
       }
+      else if (e.Key == Key.Space){
+        if(adicionar){
+          adicionar = false;
+        }else{
+          adicionar = true;
+        }
+      }
+      else if (e.Key == Key.A){
+        bool a = false;
+        for (var i = 0; i < objetosLista.Count; i++){
+          a = objetosLista[i].foiSelecionado(mouseX,mouseY);
+          if(a){
+            objetoSelecionado = objetosLista[i];
+            Console.WriteLine(a);
+          }
+        }
+        
+      }
       else if (e.Key == Key.R){
-      objetoSelecionado.ObjetoCor.CorR = 255;
-      objetoSelecionado.ObjetoCor.CorG = 0;
-      objetoSelecionado.ObjetoCor.CorB = 0;
+        if (objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 255;
+          objetoSelecionado.ObjetoCor.CorG = 0;
+          objetoSelecionado.ObjetoCor.CorB = 0;
+        }
       }
-      else if (e.Key == Key.G){
-      objetoSelecionado.ObjetoCor.CorR = 0;
-      objetoSelecionado.ObjetoCor.CorG = 255;
-      objetoSelecionado.ObjetoCor.CorB = 0;
+      else if (e.Key == Key.G) {
+        if(objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 0;
+          objetoSelecionado.ObjetoCor.CorG = 255;
+          objetoSelecionado.ObjetoCor.CorB = 0;
+        }
       }
-      else if (e.Key == Key.B){
-      objetoSelecionado.ObjetoCor.CorR = 0;
-      objetoSelecionado.ObjetoCor.CorG = 0;
-      objetoSelecionado.ObjetoCor.CorB = 255;
+      else if (e.Key == Key.B) {
+        if(objetoSelecionado != null) {
+          objetoSelecionado.ObjetoCor.CorR = 0;
+          objetoSelecionado.ObjetoCor.CorG = 0;
+          objetoSelecionado.ObjetoCor.CorB = 255;
+        }
       }
       else if (e.Key == Key.E)
       {
@@ -124,87 +129,69 @@ namespace gcgcg
           Console.WriteLine(objetosLista[i]);
         }
       }
-#if CG_Gizmo
-      else if (e.Key == Key.O)
+      else if (e.Key == Key.O) {
         bBoxDesenhar = !bBoxDesenhar;
-#endif
+      }
       else if (e.Key == Key.V)
-        mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
+        mouseMoverPto = !mouseMoverPto;
       else
         Console.WriteLine(" __ Tecla não implementada.");
     }
 
-    //TODO: não está considerando o NDC
     protected override void OnMouseMove(MouseMoveEventArgs e)
     {
-      mouseX = e.Position.X; mouseY = 750 - e.Position.Y; // Inverti eixo Y7
-      /*Console.Write("X:");
-      Console.Write(mouseX);
-      Console.Write(" Y:");
-      teste
-      Console.WriteLine(mouseY);*/
-      if(objetoSelecionado != null){
+      mouseX = e.Position.X; mouseY = 600 - e.Position.Y;
+      if(objetoSelecionado != null)
+      {
         objetoSelecionado.atualizaUltimoPonto(mouseX,mouseY);
       }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-      if(e.Button == MouseButton.Left){
-        if(ePrimeiro){
-          criarPoligonoNaTela();
-          ePrimeiro = false;
+      if(adicionar){
+        if(e.Button == MouseButton.Left){
+          if(!ehDesenhoJaIniciado){
+            criarPoligonoNaTela();
+            ehDesenhoJaIniciado = true;
+          }
+          else{
+            adicionarPontoPoligono();
+          }
         }
-        else{
-          adicionarPontoPoligono();
+        if(e.Button == MouseButton.Right){
+          if(objetoSelecionado != null) {
+            if(objetoSelecionado.lenght() < 3) {
+            objetosLista.RemoveAt(objetosLista.IndexOf(objetoSelecionado));
+            objetoSelecionado = null;
+            ehDesenhoJaIniciado = false;
+          } else {
+            objetoSelecionado.finalizaDesenho();
+            ehDesenhoJaIniciado = false;
+          }
         }
-      }
-      if(e.Button == MouseButton.Right){
-        objetoSelecionado.finalizaDesenho();
-        objetoSelecionado = null;
-        ePrimeiro = true;
+        }
       }
     }
 
     protected void criarPoligonoNaTela(){
-      objetoId = Utilitario.charProximo(objetoId);
-      Ponto jose = new(objetoId,null,mouseX,mouseY);
-      objetoId = Utilitario.charProximo(objetoId);
+      Ponto4D jose = new(mouseX,mouseY);
       Poligono poligono = new(objetoId,null,jose);
       objetosLista.Add(poligono);
       objetoSelecionado = poligono;
     }
 
     private void adicionarPontoPoligono(){
-      objetoId = Utilitario.charProximo(objetoId);
-      Ponto aurelio = new(objetoId,null,mouseX,mouseY);
+      Ponto4D aurelio = new(mouseX,mouseY);
       objetoSelecionado.adicionarPonto(aurelio);
     }
-#if CG_Gizmo
-    private void Sru3D()
-    {
-#if CG_OpenGL
-      GL.LineWidth(1);
-      GL.Begin(PrimitiveType.Lines);
-      // GL.Color3(1.0f,0.0f,0.0f);
-      GL.Color3(Convert.ToByte(255), Convert.ToByte(0), Convert.ToByte(0));
-      GL.Vertex3(0, 0, 0); GL.Vertex3(200, 0, 0);
-      // GL.Color3(0.0f,1.0f,0.0f);
-      GL.Color3(Convert.ToByte(0), Convert.ToByte(255), Convert.ToByte(0));
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, 200, 0);
-      // GL.Color3(0.0f,0.0f,1.0f);
-      GL.Color3(Convert.ToByte(0), Convert.ToByte(0), Convert.ToByte(255));
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, 0, 200);
-      GL.End();
-#endif
-    }
-#endif    
+  
   }
   class Program
   {
     static void Main(string[] args)
     {
       Mundo window = Mundo.GetInstance(600, 600);
-      window.Title = "CG_N2";
+      window.Title = "CG_N3";
       window.Run(1.0 / 60.0);
     }
   }
