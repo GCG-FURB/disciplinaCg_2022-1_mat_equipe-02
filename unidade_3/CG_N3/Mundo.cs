@@ -1,4 +1,4 @@
-﻿/**
+/**
   Autor: Dalton Solano dos Reis
 **/
 
@@ -162,8 +162,8 @@ namespace gcgcg
       if(e.Button == MouseButton.Right){
         if(objetoSelecionado != null) {
           objetoSelecionado.finalizaDesenho();
-          objetoSelecionado = null;
-          ePrimeiro = true;
+            ehDesenhoJaIniciado = false;
+          }
         }
       }
     }
