@@ -20,11 +20,12 @@ namespace gcgcg
         paiRef.FilhoAdicionar(this);
         copiarPropriedadesPai((Poligono) paiRef, rotulo);
       }
+
       base.PrimitivaTipo = PrimitiveType.LineStrip;
-      pontosPoligono.Add(ponto);
+      adicionarPonto(ponto);
       char id = Utilitario.charProximo(rotulo);
       Ponto ponto2 = new Ponto(id,null,ponto.getX(),ponto.getY());
-      pontosPoligono.Add(ponto2);
+      adicionarPonto(ponto2);
       ultimoPonto = ponto2;
     }
 
@@ -57,6 +58,7 @@ namespace gcgcg
   }
 
     public void adicionarPonto(Ponto p){
+      PontosAdicionar(p.getPonto4D());
       pontosPoligono.Add(p);
       ultimoPonto = p;
     }

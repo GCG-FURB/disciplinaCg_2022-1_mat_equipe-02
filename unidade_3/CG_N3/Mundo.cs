@@ -1,4 +1,4 @@
-﻿/**
+/**
   Autor: Dalton Solano dos Reis
 **/
 
@@ -94,7 +94,7 @@ namespace gcgcg
       }
       else if (e.Key == Key.A) {
         if(objetoSelecionado != null) {
-          objetoSelecionado.BBox.Desenhar();
+          bBoxDesenhar = true;
           objetoSelecionado = (Poligono) objetosLista[(objetosLista.IndexOf(objetoSelecionado) + 1 ) % objetosLista.Count];
         } else {
           objetoSelecionado = (Poligono) objetosLista[0];
