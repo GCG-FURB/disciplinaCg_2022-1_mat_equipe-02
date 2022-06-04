@@ -1,11 +1,3 @@
-/**
-  Autor: Dalton Solano dos Reis
-**/
-
-#define CG_Debug
-#define CG_OpenGL
-// #define CG_DirectX
-
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 
