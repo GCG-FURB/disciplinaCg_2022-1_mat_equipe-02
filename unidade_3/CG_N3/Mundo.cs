@@ -1,4 +1,4 @@
-/**
+﻿/**
   Autor: Dalton Solano dos Reis
 **/
 
@@ -38,9 +38,7 @@ namespace gcgcg
     int mouseX, mouseY;   //TODO: achar método MouseDown para não ter variável Global
     private bool mouseMoverPto = false;
 
-    private bool ePrimeiro = true;
-    private Retangulo obj_Retangulo;
-    private Poligono obj_Poligono;
+    private bool ehDesenhoJaIniciado = false;
 #if CG_Privado
     private Privado_SegReta obj_SegReta;
     private Privado_Circulo obj_Circulo;
@@ -80,10 +78,8 @@ namespace gcgcg
 #endif
       for (var i = 0; i < objetosLista.Count; i++)
         objetosLista[i].Desenhar();
-#if CG_Gizmo
       if (bBoxDesenhar && (objetoSelecionado != null))
         objetoSelecionado.BBox.Desenhar();
-#endif
       this.SwapBuffers();
     }
 
@@ -93,29 +89,32 @@ namespace gcgcg
         Utilitario.AjudaTeclado();
       else if (e.Key == Key.Escape)
         Exit();
-      else if (e.Key == Key.S){
+      else if (e.Key == Key.S) {
         objetoSelecionado.alternaPrimitiva();
       }
-      else if (e.Key == Key.S){
-        if(objetoSelecionado == null){
-
+      else if (e.Key == Key.A) {
+        if(objetoSelecionado != null) {
+          objetoSelecionado.BBox.Desenhar();
+          objetoSelecionado = (Poligono) objetosLista[(objetosLista.IndexOf(objetoSelecionado) + 1 ) % objetosLista.Count];
+        } else {
+          objetoSelecionado = (Poligono) objetosLista[0];
         }
       }
-      else if (e.Key == Key.R){
+      else if (e.Key == Key.R) {
         if(objetoSelecionado != null) {
           objetoSelecionado.ObjetoCor.CorR = 255;
           objetoSelecionado.ObjetoCor.CorG = 0;
           objetoSelecionado.ObjetoCor.CorB = 0;
         }
       }
-      else if (e.Key == Key.G){
+      else if (e.Key == Key.G) {
         if(objetoSelecionado != null) {
           objetoSelecionado.ObjetoCor.CorR = 0;
           objetoSelecionado.ObjetoCor.CorG = 255;
           objetoSelecionado.ObjetoCor.CorB = 0;
         }
       }
-      else if (e.Key == Key.B){
+      else if (e.Key == Key.B) {
         if(objetoSelecionado != null) {
           objetoSelecionado.ObjetoCor.CorR = 0;
           objetoSelecionado.ObjetoCor.CorG = 0;
@@ -130,10 +129,8 @@ namespace gcgcg
           Console.WriteLine(objetosLista[i]);
         }
       }
-#if CG_Gizmo
       else if (e.Key == Key.O)
         bBoxDesenhar = !bBoxDesenhar;
-#endif
       else if (e.Key == Key.V)
         mouseMoverPto = !mouseMoverPto;
       else
@@ -151,17 +148,23 @@ namespace gcgcg
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
       if(e.Button == MouseButton.Left) {
-        if(ePrimeiro){
+        if(!ehDesenhoJaIniciado){
           criarPoligonoNaTela();
-          ePrimeiro = false;
+          ehDesenhoJaIniciado = true;
         }
-        else{
+        else {
           adicionarPontoPoligono();
         }
       }
-      if(e.Button == MouseButton.Right){
+      if(e.Button == MouseButton.Right) {
+        
         if(objetoSelecionado != null) {
-          objetoSelecionado.finalizaDesenho();
+          if(objetoSelecionado.lenght() < 3) {
+            objetosLista.RemoveAt(objetosLista.IndexOf(objetoSelecionado));
+            objetoSelecionado = null;
+            ehDesenhoJaIniciado = false;
+          } else {
+            objetoSelecionado.finalizaDesenho();
             ehDesenhoJaIniciado = false;
           }
         }
