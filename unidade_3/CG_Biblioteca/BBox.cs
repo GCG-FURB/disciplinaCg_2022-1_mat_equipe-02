@@ -86,7 +86,6 @@ namespace CG_Biblioteca
             }
           }
         }
-        Console.WriteLine(countInte);
         if(countInte%2 == 0){
           return false;
         }else{
