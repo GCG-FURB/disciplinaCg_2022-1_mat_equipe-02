@@ -174,8 +174,8 @@ namespace gcgcg
     }
 
     protected void criarPoligonoNaTela(){
-      Ponto4D jose = new(mouseX,mouseY);
-      Poligono poligono = new(objetoId,null,jose);
+      Ponto4D novoObjeto = new(mouseX, mouseY);
+      Poligono poligono = new(objetoId, objetoSelecionado, novoObjeto);
       objetosLista.Add(poligono);
       objetoSelecionado = poligono;
     }

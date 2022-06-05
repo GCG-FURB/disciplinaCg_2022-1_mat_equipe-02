@@ -9,11 +9,11 @@ namespace gcgcg
     private Ponto4D  ultimoPonto;
     public Poligono(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef)
     {
-      /*
+      
       if(paiRef != null && this.GetType() == paiRef.GetType()) {
         paiRef.FilhoAdicionar(this);
         copiarPropriedadesPai((Poligono) paiRef, rotulo);
-      }*/
+      }
 
       base.PrimitivaTipo = PrimitiveType.LineStrip;
       PontosAdicionar(ponto);
@@ -22,17 +22,16 @@ namespace gcgcg
       ultimoPonto =  PontosUltimo();
     }
 
-    /*private void copiarPropriedadesPai(Poligono pai, char id) {
-      foreach(Ponto ponto in pai.pontosPoligono) {
-        char objetoId = Utilitario.charProximo(id);
-        Ponto novoPonto = new(objetoId,null,ponto.getX(),ponto.getY());
+    private void copiarPropriedadesPai(Poligono pai, char id) {
+      foreach(Ponto4D ponto in pai.pontosLista) {
+        Ponto4D novoPonto = new(ponto.X,ponto.Y);
         adicionarPonto(novoPonto);
       }
       this.ObjetoCor = pai.ObjetoCor;
-    }*/
+    }
     protected override void DesenharObjeto()
     {
-      GL.LineWidth(6);
+      GL.LineWidth(5);
       GL.Begin(base.PrimitivaTipo);
       foreach (Ponto4D pto in pontosLista)
       {
