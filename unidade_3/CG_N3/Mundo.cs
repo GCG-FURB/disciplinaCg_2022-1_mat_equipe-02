@@ -95,7 +95,6 @@ namespace gcgcg
           a = objetosLista[i].foiSelecionado(mouseX,mouseY);
           if(a){
             objetoSelecionado = objetosLista[i];
-            Console.WriteLine(a);
           }
         }
         
@@ -148,7 +147,7 @@ namespace gcgcg
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-      if(adicionar){
+       {
         if(e.Button == MouseButton.Left){
           if(!ehDesenhoJaIniciado){
             criarPoligonoNaTela();
