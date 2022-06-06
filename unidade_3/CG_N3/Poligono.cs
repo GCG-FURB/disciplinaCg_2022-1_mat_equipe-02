@@ -13,7 +13,6 @@ namespace gcgcg
       
       if(paiRef != null && this.GetType() == paiRef.GetType()) {
         paiRef.FilhoAdicionar(this);
-        copiarPropriedadesPai((Poligono) paiRef, rotulo);
       }
       Modificavel = true;
       base.PrimitivaTipo = PrimitiveType.LineStrip;
@@ -23,13 +22,6 @@ namespace gcgcg
       pontoSelecionado =  PontosUltimo();
     }
 
-    private void copiarPropriedadesPai(Poligono pai, char id) {
-      foreach(Ponto4D ponto in pai.pontosLista) {
-        Ponto4D novoPonto = new(ponto.X,ponto.Y);
-        adicionarPontoPegaUltimo(novoPonto);
-      }
-      this.ObjetoCor = pai.ObjetoCor;
-    }
     protected override void DesenharObjeto()
     {
       GL.LineWidth(5);
