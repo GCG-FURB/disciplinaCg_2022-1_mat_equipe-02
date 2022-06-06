@@ -40,17 +40,19 @@ namespace gcgcg
       }
       GL.End();
     }
-    public void atualizaPontoSelecionado(int x,int y){
+    public void atualizaUltimo(int x,int y){
       if(Modificavel){
         pontoSelecionado.X = x;
         pontoSelecionado.Y = y;
-        GetBBox().Atualizar(new Ponto4D(x,y));
       }
+    }
+    public void fimMover(){
+        GetBBox().AtualizaBBox(pontoSelecionado.X,pontoSelecionado.Y,pontosLista);
     }
     public void adicionarPontoPegaUltimo(Ponto4D p){
       if(Modificavel){
         PontosAdicionar(p);
-      pontoSelecionado = PontosUltimo();
+        pontoSelecionado = PontosUltimo();
       }
     }
     public int lenght() {
@@ -72,9 +74,9 @@ namespace gcgcg
     public bool foiSelecionado(double x,double y){
       bool selecionado = false;
       if(base.PrimitivaTipo == PrimitiveType.LineLoop){
-        selecionado = GetBBox().Verifica(x,y,pontosLista,false);
+        selecionado = GetBBox().VerificaScanline(x,y,pontosLista,false);
       }else{
-        selecionado = GetBBox().Verifica(x,y,pontosLista,true);
+        selecionado = GetBBox().VerificaScanline(x,y,pontosLista,true);
       }
       return selecionado;
     }

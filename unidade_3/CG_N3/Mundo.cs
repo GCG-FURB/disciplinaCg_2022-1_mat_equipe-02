@@ -100,10 +100,12 @@ namespace gcgcg
           if(moverAtivo){
               objetoSelecionado.pegaUltimo();
               objetoSelecionado.trocaModificado();
-             moverAtivo = false;
+              objetoSelecionado.fimMover();
+              moverAtivo = false;
           }else{
-            objetoSelecionado.trocaModificado();
             objetoSelecionado.selecionaMaisProcimo(mouseX,mouseY);
+            objetoSelecionado.trocaModificado();
+            
             moverAtivo = true; 
           }
         }
@@ -162,7 +164,7 @@ namespace gcgcg
       mouseX = e.Position.X; mouseY = 600 - e.Position.Y;
       if(objetoSelecionado != null)
       {
-        objetoSelecionado.atualizaPontoSelecionado(mouseX,mouseY);
+          objetoSelecionado.atualizaUltimo(mouseX,mouseY);
       }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)

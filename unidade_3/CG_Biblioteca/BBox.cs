@@ -5,7 +5,7 @@
 #define CG_Gizmo
 #define CG_Debug
 #define CG_OpenGL
-using System;
+
 
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
@@ -69,12 +69,11 @@ namespace CG_Biblioteca
       return saida;
     }
 
-    public bool Verifica(double x, double  y, List<Ponto4D> pontos, bool aberto){
+    public bool VerificaScanline(double x, double  y, List<Ponto4D> pontos, bool aberto){
       if(EstaDentro(x,y)){
         int countInte = 0;
         if(aberto){
           for (var i = 0; i < pontos.Count-1; i++){
-            Console.WriteLine(i);
             countInte += Matematica.Calcula(x,y,pontos[i],pontos[i+1]);
           }
         }else{
@@ -176,6 +175,27 @@ namespace CG_Biblioteca
       return (retorno);
     }
 #endif
-
+    public void AtualizaBBox(double x,double y,List<Ponto4D> pontos){
+      double xminimo = 100000,yminimo= 100000,ymaximo = -10000,xmaximo= -10000;
+      if(EstaDentro(x,y)){
+        for (var i = 0; i < pontos.Count; i++){
+          if(pontos[i].X < xminimo){
+            xminimo = pontos[i].X;
+          }if(pontos[i].X > xmaximo){
+            xmaximo = pontos[i].X;
+          }if(pontos[i].Y < yminimo){
+            yminimo = pontos[i].Y;
+          }if(pontos[i].Y > ymaximo){
+            ymaximo = pontos[i].Y;
+          }
+        }
+        Atribuir(new Ponto4D(xminimo,yminimo,0));
+        Atualizar(xmaximo,ymaximo,0);
+        ProcessarCentro();
+      }else{
+        Atualizar(x,y,0);
+        ProcessarCentro();
+      }
+    }
   }
 }
