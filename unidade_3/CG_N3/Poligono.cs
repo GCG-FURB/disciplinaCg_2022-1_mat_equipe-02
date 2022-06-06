@@ -40,11 +40,16 @@ namespace gcgcg
       }
       GL.End();
     }
-    public void atualizaUltimo(int x,int y){
+    public void atualizaPontoSelecionado(int x,int y){
       if(Modificavel){
         pontoSelecionado.X = x;
         pontoSelecionado.Y = y;
       }
+    }
+    public void removerMaisProximo(int x,int y){
+      selecionaMaisProcimo(x,y);
+      pontosLista.Remove(pontoSelecionado);
+      GetBBox().AtualizaBBox(pontoSelecionado.X,pontoSelecionado.Y,pontosLista);
     }
     public void fimMover(){
         GetBBox().AtualizaBBox(pontoSelecionado.X,pontoSelecionado.Y,pontosLista);

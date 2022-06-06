@@ -32,6 +32,7 @@ namespace gcgcg
     private bool adicionar = false;
     private bool ehDesenhoJaIniciado = false;
     private bool moverAtivo = false;
+    private bool removerAtivo = false;
 
     protected override void OnLoad(EventArgs e)
     {
@@ -92,6 +93,13 @@ namespace gcgcg
       }
       else if (e.Key == Key.D){
        //remove o ponto mais proximo do mouse do poligono selecionado
+       if(!adicionar){
+        if(objetoSelecionado != null){
+          if(!moverAtivo){
+            objetoSelecionado.removerMaisProximo(mouseX,mouseY);
+          }
+        }
+       }
       }
       else if (e.Key == Key.V){
        //move o ponto mais proximo do mouse do poligono selecionado
@@ -105,7 +113,6 @@ namespace gcgcg
           }else{
             objetoSelecionado.selecionaMaisProcimo(mouseX,mouseY);
             objetoSelecionado.trocaModificado();
-            
             moverAtivo = true; 
           }
         }
@@ -164,7 +171,7 @@ namespace gcgcg
       mouseX = e.Position.X; mouseY = 600 - e.Position.Y;
       if(objetoSelecionado != null)
       {
-          objetoSelecionado.atualizaUltimo(mouseX,mouseY);
+          objetoSelecionado.atualizaPontoSelecionado(mouseX,mouseY);
       }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
