@@ -27,10 +27,11 @@ namespace gcgcg
     private Ponto pont = new Ponto('#',null,100,100);
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
-    double mouseX, mouseY;
+    int mouseX, mouseY;
     private bool mouseMoverPto = false;
     private bool adicionar = false;
     private bool ehDesenhoJaIniciado = false;
+    private bool moverAtivo = false;
 
     protected override void OnLoad(EventArgs e)
     {
@@ -89,6 +90,25 @@ namespace gcgcg
           adicionar = true;
         }
       }
+      else if (e.Key == Key.D){
+       //remove o ponto mais proximo do mouse do poligono selecionado
+      }
+      else if (e.Key == Key.V){
+       //move o ponto mais proximo do mouse do poligono selecionado
+       if(!adicionar){
+        if(objetoSelecionado != null){
+          if(moverAtivo){
+              objetoSelecionado.pegaUltimo();
+              objetoSelecionado.trocaModificado();
+             moverAtivo = false;
+          }else{
+            objetoSelecionado.trocaModificado();
+            objetoSelecionado.selecionaMaisProcimo(mouseX,mouseY);
+            moverAtivo = true; 
+          }
+        }
+       }
+      }
       else if (e.Key == Key.A){
         bool a = false;
         for (var i = 0; i < objetosLista.Count; i++){
@@ -142,12 +162,12 @@ namespace gcgcg
       mouseX = e.Position.X; mouseY = 600 - e.Position.Y;
       if(objetoSelecionado != null)
       {
-        objetoSelecionado.atualizaUltimoPonto(mouseX,mouseY);
+        objetoSelecionado.atualizaPontoSelecionado(mouseX,mouseY);
       }
     }
      protected override void OnMouseDown(MouseButtonEventArgs e)
     {
-       {
+       if(adicionar){
         if(e.Button == MouseButton.Left){
           if(!ehDesenhoJaIniciado){
             criarPoligonoNaTela();
@@ -181,7 +201,7 @@ namespace gcgcg
 
     private void adicionarPontoPoligono(){
       Ponto4D aurelio = new(mouseX,mouseY);
-      objetoSelecionado.adicionarPonto(aurelio);
+      objetoSelecionado.adicionarPontoPegaUltimo(aurelio);
     }
   
   }

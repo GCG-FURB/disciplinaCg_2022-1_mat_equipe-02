@@ -1,12 +1,13 @@
 using OpenTK.Graphics.OpenGL;
-using System.Collections.Generic;
 using CG_Biblioteca;
+using System;
 
 namespace gcgcg
 {
   internal class Poligono : ObjetoGeometria
   {
-    private Ponto4D  ultimoPonto;
+    private Ponto4D  pontoSelecionado;
+    private bool Modificavel;
     public Poligono(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef)
     {
       
@@ -14,18 +15,18 @@ namespace gcgcg
         paiRef.FilhoAdicionar(this);
         copiarPropriedadesPai((Poligono) paiRef, rotulo);
       }
-
+      Modificavel = true;
       base.PrimitivaTipo = PrimitiveType.LineStrip;
       PontosAdicionar(ponto);
       Ponto4D a = new(ponto.X,ponto.Y);
       PontosAdicionar(a);
-      ultimoPonto =  PontosUltimo();
+      pontoSelecionado =  PontosUltimo();
     }
 
     private void copiarPropriedadesPai(Poligono pai, char id) {
       foreach(Ponto4D ponto in pai.pontosLista) {
         Ponto4D novoPonto = new(ponto.X,ponto.Y);
-        adicionarPonto(novoPonto);
+        adicionarPontoPegaUltimo(novoPonto);
       }
       this.ObjetoCor = pai.ObjetoCor;
     }
@@ -39,13 +40,18 @@ namespace gcgcg
       }
       GL.End();
     }
-    public void atualizaUltimoPonto(double x,double y){
-      ultimoPonto.X = x;
-      ultimoPonto.Y = y;
+    public void atualizaPontoSelecionado(int x,int y){
+      if(Modificavel){
+        pontoSelecionado.X = x;
+        pontoSelecionado.Y = y;
+        GetBBox().Atualizar(new Ponto4D(x,y));
+      }
     }
-    public void adicionarPonto(Ponto4D p){
-      PontosAdicionar(p);
-      ultimoPonto = PontosUltimo();
+    public void adicionarPontoPegaUltimo(Ponto4D p){
+      if(Modificavel){
+        PontosAdicionar(p);
+      pontoSelecionado = PontosUltimo();
+      }
     }
     public int lenght() {
       return pontosLista.Count;
@@ -58,7 +64,10 @@ namespace gcgcg
       }
     }
     public void finalizaDesenho(){
-      PontosRemoverUltimo();
+      if(Modificavel){
+        PontosRemoverUltimo();
+        Modificavel = false;
+      }
     }
     public bool foiSelecionado(double x,double y){
       bool selecionado = false;
@@ -73,6 +82,28 @@ namespace gcgcg
     public void translacaoPoligono() {
       //AtribuirTranslacao();
     }
-    
+    public void selecionaMaisProcimo(int x,int y){
+      Ponto4D temp = new();
+      double disMenor = 100000;
+      for (var i = 0; i < pontosLista.Count; i++)
+        {
+          double aux = Math.Sqrt((Math.Pow(pontosLista[i].X-x,2))+(Math.Pow(pontosLista[i].Y-y,2)));
+          if( aux < disMenor){
+            disMenor = aux;
+            temp = pontosLista[i];
+          }
+        }
+      pontoSelecionado = temp;
+    }
+    public void pegaUltimo(){
+      pontoSelecionado = PontosUltimo();
+    }
+    public void trocaModificado(){
+      if(Modificavel){
+        Modificavel = false;
+      }else{
+        Modificavel = true;
+      }
     }
   }
+}
