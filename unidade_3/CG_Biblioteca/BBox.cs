@@ -90,6 +90,8 @@ namespace CG_Biblioteca
         }else{
           return true;
         }
+      }else if(pontos.Count <= 2){
+        return true;
       }else{
         return false;
       }
@@ -177,7 +179,7 @@ namespace CG_Biblioteca
 #endif
     public void AtualizaBBox(double x,double y,List<Ponto4D> pontos){
       double xminimo = 100000,yminimo= 100000,ymaximo = -10000,xmaximo= -10000;
-      if(EstaDentro(x,y)){
+      if(EstaDentro(x,y) || pontos.Count == 2){
         for (var i = 0; i < pontos.Count; i++){
           if(pontos[i].X < xminimo){
             xminimo = pontos[i].X;
