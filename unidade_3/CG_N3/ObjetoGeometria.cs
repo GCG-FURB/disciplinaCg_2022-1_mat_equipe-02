@@ -62,6 +62,9 @@ namespace gcgcg
       return (retorno);
     }
 #endif
+    public void AtualizaBBox(){
+      GetBBox().AtualizaBBox(pontosLista);
 
+    }
   }
 }

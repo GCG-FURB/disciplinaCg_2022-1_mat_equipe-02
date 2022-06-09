@@ -199,5 +199,22 @@ namespace CG_Biblioteca
         ProcessarCentro();
       }
     }
+    public void AtualizaBBox(List<Ponto4D> pontos){
+      double xminimo = 100000,yminimo= 100000,ymaximo = -10000,xmaximo= -10000;
+      for (var i = 0; i < pontos.Count; i++){
+        if(pontos[i].X < xminimo){
+          xminimo = pontos[i].X;
+        }if(pontos[i].X > xmaximo){
+          xmaximo = pontos[i].X;
+        }if(pontos[i].Y < yminimo){
+          yminimo = pontos[i].Y;
+        }if(pontos[i].Y > ymaximo){
+          ymaximo = pontos[i].Y;
+        }
+      }
+      Atribuir(new Ponto4D(xminimo,yminimo,0));
+      Atualizar(xmaximo,ymaximo,0);
+      ProcessarCentro();
+    }
   }
 }

@@ -57,5 +57,27 @@ namespace gcgcg
     public BBox GetBBox(){
       return bBox;
     }
+    public void aumentarObjetoOrigem(){
+      double[]dados = matriz.ObterDados();
+      matriz.AtribuirEscala(dados[0]*1.1,dados[5]*1.1,dados[10]*1.1);
+    }
+    public void diminuiObjetoOrigem(){
+      double[]dados = matriz.ObterDados();
+      matriz.AtribuirEscala(dados[0]*0.9,dados[5]*0.9,dados[10]*0.9);
+    }
+    public void aumentarObjeto(){
+      double[]dados = matriz.ObterDados();
+      Ponto4D centro = bBox.obterCentro;
+      matriz.AtribuirTranslacao(dados[12] - centro.X,dados[13] - centro.Y,dados[14] - centro.Z);
+      matriz.AtribuirEscala(dados[0]*1.1,dados[5]*1.1,dados[10]*1.1);
+      matriz.AtribuirTranslacao(dados[12],dados[13],dados[14]);
+    }
+    public void diminuiObjeto(){
+      double[]dados = matriz.ObterDados();
+      Ponto4D centro = bBox.obterCentro;
+      matriz.AtribuirTranslacao(dados[12] - centro.X,dados[13] - centro.Y,dados[14] - centro.Z);
+      matriz.AtribuirEscala(dados[0]*0.9,dados[5]*0.9,dados[10]*0.9);
+      matriz.AtribuirTranslacao(dados[12],dados[13],dados[14]);
+    }
   }
 }

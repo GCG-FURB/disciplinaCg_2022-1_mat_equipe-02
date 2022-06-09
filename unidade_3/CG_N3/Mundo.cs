@@ -79,6 +79,22 @@ namespace gcgcg
         if(objetoSelecionado != null){
           objetoSelecionado.alternaPrimitiva();
         }
+      }else if(e.Key == Key.PageDown){
+        if(objetoSelecionado != null){
+          objetoSelecionado.aumentarObjetoOrigem();
+        }
+      }else if(e.Key == Key.PageUp){
+        if(objetoSelecionado != null){
+          objetoSelecionado.diminuiObjetoOrigem();
+        }
+      }else if(e.Key == Key.Home){
+        if(objetoSelecionado != null){
+          objetoSelecionado.diminuiObjeto();
+        }
+      }else if(e.Key == Key.End){
+        if(objetoSelecionado != null){
+          objetoSelecionado.aumentarObjeto();
+        }
       }
       else if (e.Key == Key.C){
         if(objetoSelecionado != null){
