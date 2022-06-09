@@ -76,7 +76,9 @@ namespace gcgcg
       else if (e.Key == Key.Escape)
         Exit();
       else if (e.Key == Key.S) {
-        objetoSelecionado.alternaPrimitiva();
+        if(objetoSelecionado != null){
+          objetoSelecionado.alternaPrimitiva();
+        }
       }
       else if (e.Key == Key.C){
         if(objetoSelecionado != null){
