@@ -108,6 +108,11 @@ namespace gcgcg
           objetoSelecionado.mostraMatriz();
         }
       }
+      else if (e.Key == Key.L) {
+        if(objetoSelecionado != null){
+          objetoSelecionado.translacaoPoligonoX();
+        }
+      }
       else if (e.Key == Key.C){
         if(objetoSelecionado != null){
           objetosLista.Remove(objetoSelecionado);

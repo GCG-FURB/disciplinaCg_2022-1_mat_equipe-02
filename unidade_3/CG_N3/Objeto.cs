@@ -58,6 +58,25 @@ namespace gcgcg
     public BBox GetBBox(){
       return bBox;
     }
+    public void translacaoPoligonoX() {
+      Transformacao4D matriz2 = new();
+      
+
+      matriz2.AtribuirTranslacao(10, 0, 0);
+      matriz.MultiplicarMatriz(matriz2);
+      //AtribuirTranslacao();
+    }
+
+    public void translacaoPoligonoY() {
+      Transformacao4D matriz2 = new();
+      
+
+      matriz2.AtribuirTranslacao(0, 10, 0);
+      matriz.MultiplicarMatriz(matriz2);
+      //AtribuirTranslacao();
+    }
+
+    
     public void aumentarObjetoOrigem(){
       double[]dados = matriz.ObterDados();
       Transformacao4D aux = new();
