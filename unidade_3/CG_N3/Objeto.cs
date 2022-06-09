@@ -63,7 +63,7 @@ namespace gcgcg
       
 
       matriz2.AtribuirTranslacao(10, 0, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
     }
 
@@ -72,7 +72,7 @@ namespace gcgcg
       
 
       matriz2.AtribuirTranslacao(0, 10, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
     }
 
@@ -83,15 +83,13 @@ namespace gcgcg
       aux.AtribuirElemento(0,dados[0]*1.0);
       aux.AtribuirElemento(5,dados[5]*1.0);
       aux.AtribuirElemento(10,dados[10]*1.0);
-      matriz.MultiplicarMatriz(aux);
+      matriz = matriz.MultiplicarMatriz(aux);
     }
     public void diminuiObjetoOrigem(){
       double[]dados = matriz.ObterDados();
       Transformacao4D aux = new();
-      aux.AtribuirElemento(0,dados[0]*0.9);
-      aux.AtribuirElemento(5,dados[5]*0.9);
-      aux.AtribuirElemento(10,dados[10]*0.9);
-      matriz.MultiplicarMatriz(aux);
+      aux.AtribuirEscala(0.9,0.9,0.9);
+      matriz = matriz.MultiplicarMatriz(aux);
     }
     public void aumentarObjeto(){
       Transformacao4D aux = new();
@@ -99,13 +97,13 @@ namespace gcgcg
       aux.AtribuirElemento(12,-centro.X);
       aux.AtribuirElemento(13,-centro.Y);
       aux.AtribuirElemento(14,-centro.Z);
-      matriz.MultiplicarMatriz(aux);
+      matriz = matriz.MultiplicarMatriz(aux);
       aux.AtribuirIdentidade();
       aumentarObjetoOrigem();
       aux.AtribuirElemento(12,centro.X);
       aux.AtribuirElemento(13,centro.Y);
       aux.AtribuirElemento(14,centro.Z);
-      matriz.MultiplicarMatriz(aux);
+      matriz = matriz.MultiplicarMatriz(aux);
     }
     public void diminuiObjeto(){
       double[]dados = matriz.ObterDados();
