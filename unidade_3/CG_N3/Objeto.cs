@@ -7,6 +7,7 @@
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using CG_Biblioteca;
+using System;
 
 namespace gcgcg
 {
@@ -76,5 +77,44 @@ namespace gcgcg
     }
 
     
+    public void aumentarObjetoOrigem(){
+      double[]dados = matriz.ObterDados();
+      matriz.AtribuirEscala(dados[0]*1.1,dados[5]*1.1,dados[10]*1.1);
+    }
+    public void diminuiObjetoOrigem(){
+      double[]dados = matriz.ObterDados();
+      matriz.AtribuirEscala(dados[0]*0.9,dados[5]*0.9,dados[10]*0.9);
+    }
+    public void aumentarObjeto(){
+      double[]dados = matriz.ObterDados();
+      Ponto4D centro = bBox.obterCentro;
+      matriz.AtribuirTranslacao(dados[12] - centro.X, dados[13] - centro.Y, dados[14] - centro.Z);
+      matriz.AtribuirEscala(dados[0]*1.1,dados[5]*1.1,dados[10]*1.1);
+      matriz.AtribuirTranslacao(dados[12] + centro.X,dados[13] + centro.Y,dados[14] + centro.X);
+    }
+    public void diminuiObjeto(){
+      double[]dados = matriz.ObterDados();
+      Ponto4D centro = bBox.obterCentro;
+      
+      matriz.AtribuirTranslacao(dados[12] - centro.X,dados[13] - centro.Y,dados[14] - centro.X);
+      matriz.AtribuirEscala(dados[0]*0.9,dados[5]*0.9,dados[10]*0.9);
+      matriz.AtribuirTranslacao(dados[12],dados[13],dados[14]);
+      
+    }
+    public void toOrigem(){
+      double[]dados = matriz.ObterDados();
+      Ponto4D centro = bBox.obterCentro;
+      matriz.AtribuirTranslacao(dados[12] - centro.X, dados[13] - centro.Y, dados[14] - centro.Z);
+    }
+    public void Identidade(){
+      matriz.AtribuirIdentidade();
+    }
+    public void mostraMatriz(){
+      double[]dados = matriz.ObterDados();
+      Console.WriteLine("|"+dados[0]+"|"+dados[4]+"|"+dados[8]+"|"+dados[12]);
+      Console.WriteLine("|"+dados[1]+"|"+dados[5]+"|"+dados[9]+"|"+dados[13]);
+      Console.WriteLine("|"+dados[2]+"|"+dados[6]+"|"+dados[10]+"|"+dados[14]);
+      Console.WriteLine("|"+dados[3]+"|"+dados[7]+"|"+dados[11]+"|"+dados[15]);
+    }
   }
 }

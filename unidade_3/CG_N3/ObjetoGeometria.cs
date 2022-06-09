@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using CG_Biblioteca;
+using System;
 
 namespace gcgcg
 {
@@ -62,6 +63,21 @@ namespace gcgcg
       return (retorno);
     }
 #endif
-
+    public void AtualizaBBox(){
+      GetBBox().AtualizaBBox(pontosLista);
+    }
+    public void imprimePontos(bool desenhado){
+      Console.WriteLine("Objeto: "+rotulo);
+      if(desenhado){
+        for(int i = 0; i < pontosLista.Count-1;i++){
+          Console.WriteLine("P"+i+"("+pontosLista[i].X+", "+pontosLista[i].Y+", "+pontosLista[i].Z+")");
+        }   
+      }else{
+        for(int i = 0; i < pontosLista.Count;i++){
+          Console.WriteLine("P"+i+"("+pontosLista[i].X+", "+pontosLista[i].Y+", "+pontosLista[i].Z+")");
+        } 
+      }
+      Console.WriteLine("---------------");
+    }
   }
 }
