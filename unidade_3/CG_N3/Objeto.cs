@@ -58,22 +58,31 @@ namespace gcgcg
     public BBox GetBBox(){
       return bBox;
     }
-    public void translacaoPoligonoX() {
+    public void translacaoPoligonoX(bool direcao) {
       Transformacao4D matriz2 = new();
       
-
+      if(direcao) {
       matriz2.AtribuirTranslacao(10, 0, 0);
       matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
+      }
+      else {
+      matriz2.AtribuirTranslacao(-10, 0, 0);
+      matriz.MultiplicarMatriz(matriz2);
+      }
     }
 
-    public void translacaoPoligonoY() {
+    public void translacaoPoligonoY(bool direcao) {
       Transformacao4D matriz2 = new();
       
-
+      if(direcao) {
       matriz2.AtribuirTranslacao(0, 10, 0);
       matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
+      } else {
+      matriz2.AtribuirTranslacao(0, -10, 0);
+      matriz.MultiplicarMatriz(matriz2);
+      }
     }
 
     

@@ -110,14 +110,25 @@ namespace gcgcg
       }
       else if (e.Key == Key.Left) {
         if(objetoSelecionado != null){
-          objetoSelecionado.translacaoPoligonoX();
+          objetoSelecionado.translacaoPoligonoX(true);
+        }
+      }
+      else if (e.Key == Key.Left) {
+        if(objetoSelecionado != null){
+          objetoSelecionado.translacaoPoligonoX(false);
         }
       }
       else if (e.Key == Key.Up) {
         if(objetoSelecionado != null){
-          objetoSelecionado.translacaoPoligonoY();
+          objetoSelecionado.translacaoPoligonoY(true);
         }
       }
+      else if (e.Key == Key.Down) {
+        if(objetoSelecionado != null){
+          objetoSelecionado.translacaoPoligonoY(false);
+        }
+      }
+
       else if (e.Key == Key.C){
         if(objetoSelecionado != null){
           objetosLista.Remove(objetoSelecionado);
