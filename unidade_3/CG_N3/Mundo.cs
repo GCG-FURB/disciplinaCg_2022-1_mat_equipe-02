@@ -110,12 +110,12 @@ namespace gcgcg
           objetoSelecionado.mostraMatriz();
         }
       }
-      else if (e.Key == Key.Left) {
+      else if (e.Key == Key.Right) {
         if(objetoSelecionado != null){
           objetoSelecionado.translacaoPoligonoX(true);
         }
       }
-      else if (e.Key == Key.Right) {
+      else if (e.Key == Key.Left) {
         if(objetoSelecionado != null){
           objetoSelecionado.translacaoPoligonoX(false);
         }
