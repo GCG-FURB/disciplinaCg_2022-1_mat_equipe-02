@@ -68,7 +68,7 @@ namespace gcgcg
       }
       else {
       matriz2.AtribuirTranslacao(-10, 0, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       }
     }
 
@@ -81,7 +81,7 @@ namespace gcgcg
       //AtribuirTranslacao();
       } else {
       matriz2.AtribuirTranslacao(0, -10, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       }
     }
 
