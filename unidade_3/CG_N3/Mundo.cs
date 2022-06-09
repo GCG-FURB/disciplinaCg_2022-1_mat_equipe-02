@@ -264,7 +264,8 @@ namespace gcgcg
       Ponto4D novoObjeto = new(mouseX, mouseY);
       objetoId = Utilitario.charProximo(objetoId);
       Poligono poligono = new(objetoId, objetoSelecionado, novoObjeto);
-      objetosLista.Add(poligono);
+      if(objetoSelecionado == null)
+        objetosLista.Add(poligono);
       objetoSelecionado = poligono;
     }
 
