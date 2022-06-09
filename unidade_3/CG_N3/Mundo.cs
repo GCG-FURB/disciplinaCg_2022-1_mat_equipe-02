@@ -95,11 +95,28 @@ namespace gcgcg
         if(objetoSelecionado != null){
           objetoSelecionado.aumentarObjeto();
         }
+      }else if(e.Key == Key.K){
+        if(objetoSelecionado != null){
+          objetoSelecionado.toOrigem();
+        }
+      }else if(e.Key == Key.I){
+        if(objetoSelecionado != null){
+          objetoSelecionado.Identidade();
+        }
+      }else if(e.Key == Key.M){
+        if(objetoSelecionado != null){
+          objetoSelecionado.mostraMatriz();
+        }
       }
       else if (e.Key == Key.C){
         if(objetoSelecionado != null){
           objetosLista.Remove(objetoSelecionado);
           objetoSelecionado = null;
+        }
+      }
+      else if (e.Key == Key.P){
+        if(objetoSelecionado != null){
+          objetoSelecionado.imprimePontos(adicionar);
         }
       }
       else if (e.Key == Key.Space){
@@ -137,6 +154,7 @@ namespace gcgcg
        }
       }
       else if (e.Key == Key.A){
+        objetoSelecionado = null;
         bool a = false;
         for (var i = 0; i < objetosLista.Count; i++){
           a = objetosLista[i].foiSelecionado(mouseX,mouseY);
@@ -221,6 +239,7 @@ namespace gcgcg
 
     protected void criarPoligonoNaTela(){
       Ponto4D novoObjeto = new(mouseX, mouseY);
+      objetoId = Utilitario.charProximo(objetoId);
       Poligono poligono = new(objetoId, objetoSelecionado, novoObjeto);
       objetosLista.Add(poligono);
       objetoSelecionado = poligono;
@@ -236,6 +255,7 @@ namespace gcgcg
   {
     static void Main(string[] args)
     {
+      ToolkitOptions.Default.EnableHighResolution = false;
       Mundo window = Mundo.GetInstance(600, 600);
       window.Title = "CG_N3";
       window.Run(1.0 / 60.0);
