@@ -21,6 +21,7 @@ namespace gcgcg
     public float PrimitivaTamanho { get => primitivaTamanho; set => primitivaTamanho = value; }
     private BBox bBox = new BBox();
     public BBox BBox { get => bBox; set => bBox = value; }
+    public Transformacao4D matriz = new Transformacao4D();
     private List<Objeto> objetosLista = new List<Objeto>();
 
     public Objeto(char rotulo, Objeto paiRef)
@@ -31,6 +32,8 @@ namespace gcgcg
     public void Desenhar()
     {
 #if CG_OpenGL
+      GL.PushMatrix();
+      GL.MultMatrix(matriz.ObterDados());
       GL.Color3(objetoCor.CorR, objetoCor.CorG, objetoCor.CorB);
       GL.LineWidth(primitivaTamanho);
       GL.PointSize(primitivaTamanho);
@@ -40,6 +43,7 @@ namespace gcgcg
       {
         objetosLista[i].Desenhar();
       }
+      GL.PopMatrix();
     }
     protected abstract void DesenharGeometria();
     public void FilhoAdicionar(Objeto filho)
