@@ -63,7 +63,7 @@ namespace gcgcg
       
       if(direcao) {
       matriz2.AtribuirTranslacao(10, 0, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
       }
       else {
@@ -77,7 +77,7 @@ namespace gcgcg
       
       if(direcao) {
       matriz2.AtribuirTranslacao(0, 10, 0);
-      matriz.MultiplicarMatriz(matriz2);
+      matriz = matriz.MultiplicarMatriz(matriz2);
       //AtribuirTranslacao();
       } else {
       matriz2.AtribuirTranslacao(0, -10, 0);
@@ -87,41 +87,34 @@ namespace gcgcg
 
     
     public void aumentarObjetoOrigem(){
-      double[]dados = matriz.ObterDados();
       Transformacao4D aux = new();
-      aux.AtribuirElemento(0,dados[0]*1.0);
-      aux.AtribuirElemento(5,dados[5]*1.0);
-      aux.AtribuirElemento(10,dados[10]*1.0);
-      matriz.MultiplicarMatriz(aux);
+      aux.AtribuirEscala(1.1,1.1,1.1);
+      matriz = aux.MultiplicarMatriz(matriz);
     }
     public void diminuiObjetoOrigem(){
-      double[]dados = matriz.ObterDados();
       Transformacao4D aux = new();
-      aux.AtribuirElemento(0,dados[0]*0.9);
-      aux.AtribuirElemento(5,dados[5]*0.9);
-      aux.AtribuirElemento(10,dados[10]*0.9);
-      matriz.MultiplicarMatriz(aux);
+      aux.AtribuirEscala(0.9,0.9,0.9);
+      matriz = aux.MultiplicarMatriz(matriz);
     }
     public void aumentarObjeto(){
       Transformacao4D aux = new();
-      Ponto4D centro = bBox.obterCentro; 
-      aux.AtribuirElemento(12,-centro.X);
-      aux.AtribuirElemento(13,-centro.Y);
-      aux.AtribuirElemento(14,-centro.Z);
-      matriz.MultiplicarMatriz(aux);
+      Ponto4D centro = bBox.obterCentro;
+      aux.AtribuirTranslacao(-centro.X,-centro.Y,centro.Z);
+      matriz = aux.MultiplicarMatriz(matriz);
       aux.AtribuirIdentidade();
       aumentarObjetoOrigem();
-      aux.AtribuirElemento(12,centro.X);
-      aux.AtribuirElemento(13,centro.Y);
-      aux.AtribuirElemento(14,centro.Z);
-      matriz.MultiplicarMatriz(aux);
+      aux.AtribuirTranslacao(centro.X,centro.Y,centro.Z);
+      matriz = aux.MultiplicarMatriz(matriz);
     }
     public void diminuiObjeto(){
-      double[]dados = matriz.ObterDados();
+      Transformacao4D aux = new();
       Ponto4D centro = bBox.obterCentro;
-      matriz.AtribuirTranslacao(dados[12] - centro.X,dados[13] - centro.Y,dados[14] - centro.X);
-      matriz.AtribuirEscala(dados[0]*0.9,dados[5]*0.9,dados[10]*0.9);
-      matriz.AtribuirTranslacao(dados[12],dados[13],dados[14]);
+      aux.AtribuirTranslacao(-centro.X,-centro.Y,centro.Z);
+      matriz = aux.MultiplicarMatriz(matriz);
+      aux.AtribuirIdentidade();
+      diminuiObjetoOrigem();
+      aux.AtribuirTranslacao(centro.X,centro.Y,centro.Z);
+      matriz = aux.MultiplicarMatriz(matriz);
       
     }
     public void toOrigem(){

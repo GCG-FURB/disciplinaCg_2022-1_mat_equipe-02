@@ -1,9 +1,11 @@
-﻿using System;
+﻿#define CG_OpenGL // render OpenGL.
+using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using OpenTK.Input;
 using CG_Biblioteca;
+
 
 namespace gcgcg
 {
