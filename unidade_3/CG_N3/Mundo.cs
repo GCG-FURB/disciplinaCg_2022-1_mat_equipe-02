@@ -108,9 +108,14 @@ namespace gcgcg
           objetoSelecionado.mostraMatriz();
         }
       }
-      else if (e.Key == Key.L) {
+      else if (e.Key == Key.Left) {
         if(objetoSelecionado != null){
           objetoSelecionado.translacaoPoligonoX();
+        }
+      }
+      else if (e.Key == Key.Up) {
+        if(objetoSelecionado != null){
+          objetoSelecionado.translacaoPoligonoY();
         }
       }
       else if (e.Key == Key.C){
