@@ -93,6 +93,22 @@ namespace gcgcg
         if(objetoSelecionado != null){
           objetoSelecionado.diminuiObjeto();
         }
+      }else if(e.Key == Key.Number1){
+        if(objetoSelecionado != null){
+          objetoSelecionado.Rotacao(4);
+        }
+      }else if(e.Key == Key.Number2){
+        if(objetoSelecionado != null){
+          objetoSelecionado.Rotacao(-4);
+        }
+      }else if(e.Key == Key.Number3){
+        if(objetoSelecionado != null){
+          objetoSelecionado.rotacionarEixoBBox(4);
+        }
+      }else if(e.Key == Key.Number4){
+        if(objetoSelecionado != null){
+          objetoSelecionado.rotacionarEixoBBox(-4);
+        }
       }else if(e.Key == Key.End){
         if(objetoSelecionado != null){
           objetoSelecionado.aumentarObjeto();

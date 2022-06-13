@@ -85,6 +85,44 @@ namespace gcgcg
       }
     }
 
+    public void Rotacao(double angulo)
+    {
+      Transformacao4D matrizTmpTranslacao = new();
+      Transformacao4D matrizTmpRotacao = new();
+      RotacaoEixo(angulo, 'z', matrizTmpRotacao);
+      matriz = matrizTmpRotacao.MultiplicarMatriz(matriz);
+    }
+
+    public void RotacaoEixo(double angulo, char eixoRotacao, Transformacao4D matrizTmpRotacao)
+    {
+      switch (eixoRotacao)
+      {
+        case 'x':
+          matrizTmpRotacao.AtribuirRotacaoX(Transformacao4D.DEG_TO_RAD * angulo);
+          break;
+        case 'y':
+          matrizTmpRotacao.AtribuirRotacaoY(Transformacao4D.DEG_TO_RAD * angulo);
+          break;
+        case 'z':
+          matrizTmpRotacao.AtribuirRotacaoZ(Transformacao4D.DEG_TO_RAD * angulo);
+          break;
+      }
+    }
+
+    public void rotacionarEixoBBox(double angulo) {
+      Transformacao4D matrizTmpTranslacao = new();
+      Transformacao4D matrizTmpRotacao = new();
+      Transformacao4D matrizTmpTranslacaoInversa = new();
+      Ponto4D pontoPivo = matriz.MultiplicarPonto(bBox.obterCentro);
+      matrizTmpTranslacao.AtribuirTranslacao(-pontoPivo.X, -pontoPivo.Y, -pontoPivo.Z);
+      matriz = matrizTmpTranslacao.MultiplicarMatriz(matriz);
+      RotacaoEixo(angulo, 'z', matrizTmpRotacao);
+      matriz = matrizTmpRotacao.MultiplicarMatriz(matriz);
+
+      matrizTmpTranslacaoInversa.AtribuirTranslacao(pontoPivo.X, pontoPivo.Y, pontoPivo.Z);
+      matriz = matrizTmpTranslacaoInversa.MultiplicarMatriz(matriz);
+    }
+
     
     public void aumentarObjetoOrigem(){
       Transformacao4D aux = new();
