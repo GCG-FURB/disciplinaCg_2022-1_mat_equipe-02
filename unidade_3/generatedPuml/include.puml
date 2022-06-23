@@ -1,0 +1,11 @@
+@startuml
+!include .\\.\CG_N3\.puml
+!include .\\.\CG_N3\Mundo.puml
+!include .\\.\CG_N3\Objeto.puml
+!include .\\.\CG_N3\ObjetoGeometria.puml
+!include .\\.\CG_N3\Poligono.puml
+!include .\\.\CG_N3\Retangulo.puml
+!include .\\.\CG_N3\Utilitario.puml
+!include .\\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.puml
+!include .\\obj\Debug\net6.0\CG_N3.AssemblyInfo.puml
+@enduml

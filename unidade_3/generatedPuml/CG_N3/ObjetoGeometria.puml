@@ -1,0 +1,19 @@
+@startuml
+abstract class ObjetoGeometria {
+    + ObjetoGeometria(rotulo:char, paiRef:Objeto)
+    # <<override>> DesenharGeometria() : void
+    # {abstract} DesenharObjeto() : void
+    + PontosAdicionar(pto:Ponto4D) : void
+    + PontosRemoverUltimo() : void
+    # PontosRemoverTodos() : void
+    + PontosUltimo() : Ponto4D
+    + PontosAlterar(pto:Ponto4D, posicao:int) : void
+    + <<override>> ToString() : string
+    + AtualizaBBox() : void
+    + imprimePontos(desenhado:bool) : void
+}
+class "List`1"<T> {
+}
+Objeto <|-- ObjetoGeometria
+ObjetoGeometria o-> "pontosLista<Ponto4D>" "List`1"
+@enduml

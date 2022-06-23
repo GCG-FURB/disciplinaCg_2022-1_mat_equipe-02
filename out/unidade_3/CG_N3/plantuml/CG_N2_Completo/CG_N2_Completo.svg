@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="631px" preserveAspectRatio="none" style="width:636px;height:631px;background:#000000;" version="1.1" viewBox="0 0 636 631" width="636px" zoomAndPan="magnify"><defs/><g><rect fill="#0C0716" height="1" style="stroke:#0C0716;stroke-width:1.0;" width="1" x="0" y="0"/><text fill="#33FF02" font-family="sans-serif" font-size="12" font-style="italic" font-weight="bold" lengthAdjust="spacing" textLength="107" x="5" y="17">PlantUML 1.2022.0</text><text fill="#33FF02" font-family="sans-serif" font-size="12" font-style="italic" font-weight="bold" lengthAdjust="spacing" textLength="0" x="8" y="32.0938"/><text fill="#33FF02" font-family="sans-serif" font-size="12" font-style="italic" font-weight="bold" lengthAdjust="spacing" textLength="337" x="5" y="47.1875">&lt;b&gt;This version of PlantUML is 153 days old, so you should</text><text fill="#33FF02" font-family="sans-serif" font-size="12" font-style="italic" font-weight="bold" lengthAdjust="spacing" textLength="338" x="5" y="62.2813">&lt;b&gt;consider upgrading from https://plantuml.com/download</text><rect fill="#33FF02" height="22.6094" style="stroke:#33FF02;stroke-width:1.0;" width="624" x="5" y="73.375"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="147" x="6" y="88.375">[From string (line 8) ]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="9" y="109.9844"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="197" x="5" y="127.5938">@startuml CG_N2_Completo</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="9" y="145.2031"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="308" x="5" y="162.8125">title Diagrama de Classes - CG_N2 Completo</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="300" x="5" y="180.4219">footer Grupo GCG - [[http://gcg.inf.furb.br]]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="9" y="198.0313"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="12" x="5" y="215.6406">...</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="152" x="5" y="233.25">... ( skipping 64 lines )</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="12" x="5" y="250.8594">...</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="5" x="5" y="268.4688">}</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="171" x="5" y="286.0781">class Transformacao4D {</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="608" x="21" y="303.6875">{static} + &lt;&lt;readonly&gt;&gt; DEG_TO_RAD : double = 0.017453292519943295769236907684886</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="144" x="21" y="321.2969">+ Transformacao4D()</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="192" x="21" y="338.9063">+ AtribuirIdentidade() : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="405" x="21" y="356.5156">+ AtribuirTranslacao(tx:double, ty:double, tz:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="388" x="21" y="374.125">+ AtribuirEscala(sX:double, sY:double, sZ:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="288" x="21" y="391.7344">+ AtribuirRotacaoX(radians:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="289" x="21" y="409.3438">+ AtribuirRotacaoY(radians:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="287" x="21" y="426.9531">+ AtribuirRotacaoZ(radians:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="294" x="21" y="444.5625">+ MultiplicarPonto(pto:Ponto4D) : Ponto4D</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="404" x="21" y="462.1719">+ MultiplicarMatriz(t:Transformacao4D) : Transformacao4D</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="250" x="21" y="479.7813">+ ObterElemento(index:int) : double</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="344" x="21" y="497.3906">+ AtribuirElemento(index:int, value:double) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="177" x="21" y="515">+ ObterDados() : double[]</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="254" x="21" y="532.6094">+ AtribuirDados(data:double[]) : void</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="231" x="21" y="550.2188">+ &lt;&lt;override&gt;&gt; ToString() : string</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="5" x="5" y="567.8281">}</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="9" y="585.4375"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" text-decoration="wavy underline" textLength="216" x="5" y="603.0469">!include ./plantuml/include.wsd</text><text fill="#FF0000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="264" x="9" y="620.6563">cannot include ./plantuml/include.wsd</text><!--MD5=[3d948d5db9c8142341e8678fb84b2e38]
+
+@startuml CG_N2_Completo
+
+title Diagrama de Classes - CG_N2 Completo
+footer Grupo GCG - [[http://gcg.inf.furb.br]]
+
+class BBox {
+    + BBox(menorX:double, menorY:double, menorZ:double, maiorX:double, maiorY:double, maiorZ:double)
+    + Atribuir(pto:Ponto4D) : void
+    + Atualizar(pto:Ponto4D) : void
+    + Atualizar(x:double, y:double, z:double) : void
+    + ProcessarCentro() : void
+    + Desenhar() : void
+    + obterMenorX : double <<get>>
+    + obterMenorY : double <<get>>
+    + obterMenorZ : double <<get>>
+    + obterMaiorX : double <<get>>
+    + obterMaiorY : double <<get>>
+    + obterMaiorZ : double <<get>>
+    + <<override>> ToString() : string
+}
+BBox - -> "obterCentro" Ponto4D
+class CameraOrtho {
+    + CameraOrtho(xMin:double, xMax:double, yMin:double, yMax:double, zMin:double, zMax:double)
+    + xmin : double <<get>> <<set>>
+    + xmax : double <<get>> <<set>>
+    + ymin : double <<get>> <<set>>
+    + ymax : double <<get>> <<set>>
+    + zmin : double <<get>> <<set>>
+    + zmax : double <<get>> <<set>>
+    + PanEsquerda() : void
+    + PanDireita() : void
+    + PanCima() : void
+    + PanBaixo() : void
+    + ZoomIn() : void
+    + ZoomOut() : void
+    + <<override>> ToString() : string
+}
+class CameraPerspective {
+    + CameraPerspective(fovy:float, aspect:float, near:float, far:float)
+    + Fovy : float <<get>> <<set>>
+    + Aspect : float <<get>> <<set>>
+    + Near : float <<get>> <<set>>
+    + Far : float <<get>> <<set>>
+    + <<override>> ToString() : string
+}
+CameraPerspective - -> "Eye" Vector3
+CameraPerspective - -> "At" Vector3
+CameraPerspective - -> "Up" Vector3
+class Cor {
+    + Cor(corR:byte, corG:byte, corB:byte, corA:byte)
+    + <<override>> ToString() : string
+    + CorR : byte <<get>> <<set>>
+    + CorG : byte <<get>> <<set>>
+    + CorB : byte <<get>> <<set>>
+    + CorA : byte <<get>> <<set>>
+}
+abstract class Matematica {
+    + {static} GerarPtosCirculo(angulo:double, raio:double) : Ponto4D
+    + {static} GerarPtosCirculoSimétrico(raio:double) : double
+}
+class Ponto4D {
+    + Ponto4D(x:double, y:double, z:double, w:double)
+    + Ponto4D(pto:Ponto4D)
+    + X : double <<get>> <<set>>
+    + Y : double <<get>> <<set>>
+    + Z : double <<get>> <<set>>
+    + W : double <<get>>
+    + <<override>> ToString() : string
+}
+class Transformacao4D {
+    {static} + <<readonly>> DEG_TO_RAD : double = 0.017453292519943295769236907684886
+    + Transformacao4D()
+    + AtribuirIdentidade() : void
+    + AtribuirTranslacao(tx:double, ty:double, tz:double) : void
+    + AtribuirEscala(sX:double, sY:double, sZ:double) : void
+    + AtribuirRotacaoX(radians:double) : void
+    + AtribuirRotacaoY(radians:double) : void
+    + AtribuirRotacaoZ(radians:double) : void
+    + MultiplicarPonto(pto:Ponto4D) : Ponto4D
+    + MultiplicarMatriz(t:Transformacao4D) : Transformacao4D
+    + ObterElemento(index:int) : double
+    + AtribuirElemento(index:int, value:double) : void
+    + ObterDados() : double[]
+    + AtribuirDados(data:double[]) : void
+    + <<override>> ToString() : string
+}
+
+!include ./plantuml/include.wsd
+
+PlantUML version 1.2022.0(Tue Jan 11 13:16:42 BRT 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

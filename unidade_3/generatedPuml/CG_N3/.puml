@@ -1,0 +1,14 @@
+@startuml
+class Ponto {
+    + Ponto(rotulo:char, paiRef:Objeto, x:double, y:double)
+    # <<override>> DesenharObjeto() : void
+    + getX() : double
+    + getY() : double
+    + getPonto4D() : Ponto4D
+    + setX(x:double) : void
+    + setY(y:double) : void
+    + atualizarPonto(x:double, y:double) : void
+}
+ObjetoGeometria <|-- Ponto
+Ponto --> "ponto" Ponto4D
+@enduml

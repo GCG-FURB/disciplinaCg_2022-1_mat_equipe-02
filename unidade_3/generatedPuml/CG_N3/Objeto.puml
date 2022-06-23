@@ -1,0 +1,35 @@
+@startuml
+abstract class Objeto {
+    # rotulo : char
+    - primitivaTamanho : float = 1
+    + PrimitivaTamanho : float <<get>> <<set>>
+    + Objeto(rotulo:char, paiRef:Objeto)
+    + Desenhar() : void
+    # {abstract} DesenharGeometria() : void
+    + FilhoAdicionar(filho:Objeto) : void
+    + FilhoRemover(filho:Objeto) : void
+    + GetBBox() : BBox
+    + translacaoPoligonoX(direcao:bool) : void
+    + translacaoPoligonoY(direcao:bool) : void
+    + Rotacao(angulo:double) : void
+    + RotacaoEixo(angulo:double, eixoRotacao:char, matrizTmpRotacao:Transformacao4D) : void
+    + rotacionarEixoBBox(angulo:double) : void
+    + aumentarObjetoOrigem() : void
+    + diminuiObjetoOrigem() : void
+    + aumentarObjeto() : void
+    + diminuiObjeto() : void
+    + toOrigem() : void
+    + Identidade() : void
+    + mostraMatriz() : void
+}
+class "List`1"<T> {
+}
+Objeto o-> "objetoCor" Cor
+Objeto --> "ObjetoCor" Cor
+Objeto o-> "primitivaTipo" PrimitiveType
+Objeto --> "PrimitivaTipo" PrimitiveType
+Objeto o-> "bBox" BBox
+Objeto --> "BBox" BBox
+Objeto o-> "matriz" Transformacao4D
+Objeto o-> "objetosLista<Objeto>" "List`1"
+@enduml

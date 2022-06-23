@@ -1,0 +1,10 @@
+@startuml
+abstract class Matematica {
+    + {static} GerarPtosCirculo(angulo:double, raio:double) : Ponto4D
+    + {static} GerarPtosCirculoSimetrico(raio:double) : double
+    + {static} Calcula_ti(yi:double, y1:double, y2:double) : double
+    + {static} Calcula(x:double, y:double, pt1:Ponto4D, pt2:Ponto4D) : int
+    + {static} max(a:double, b:double) : double
+    + {static} min(a:double, b:double) : double
+}
+@enduml

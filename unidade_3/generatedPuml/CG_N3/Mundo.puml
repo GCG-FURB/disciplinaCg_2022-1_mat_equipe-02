@@ -1,0 +1,34 @@
+@startuml
+class Mundo {
+    - Mundo(width:int, height:int)
+    + {static} GetInstance(width:int, height:int) : Mundo
+    - objetoId : char = '@'
+    - bBoxDesenhar : bool = false
+    mouseX : int
+    mouseY : int
+    - mouseMoverPto : bool = false
+    - adicionar : bool = false
+    - ehDesenhoJaIniciado : bool = false
+    - moverAtivo : bool = false
+    - removerAtivo : bool = false
+    # <<override>> OnLoad(e:EventArgs) : void
+    # <<override>> OnUpdateFrame(e:FrameEventArgs) : void
+    # <<override>> OnRenderFrame(e:FrameEventArgs) : void
+    # <<override>> OnKeyDown(e:OpenTK.Input.KeyboardKeyEventArgs) : void
+    # <<override>> OnMouseMove(e:MouseMoveEventArgs) : void
+    # <<override>> OnMouseDown(e:MouseButtonEventArgs) : void
+    # criarPoligonoNaTela() : void
+    - adicionarPontoPoligono() : void
+}
+class Program {
+    {static} Main(args:string[]) : void
+}
+class "List`1"<T> {
+}
+GameWindow <|-- Mundo
+Mundo o-> "instanciaMundo" Mundo
+Mundo o-> "camera" CameraOrtho
+Mundo o-> "objetosLista<Poligono>" "List`1"
+Mundo o-> "objetoSelecionado" Poligono
+Mundo o-> "pont" Ponto
+@enduml

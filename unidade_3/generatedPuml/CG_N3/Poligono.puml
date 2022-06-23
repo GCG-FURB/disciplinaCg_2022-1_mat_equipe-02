@@ -1,0 +1,21 @@
+@startuml
+class Poligono {
+    - Modificavel : bool
+    + Poligono(rotulo:char, paiRef:Objeto, ponto:Ponto4D)
+    # <<override>> DesenharObjeto() : void
+    + atualizaPontoSelecionado(x:int, y:int) : void
+    + removerMaisProximo(x:int, y:int) : void
+    + fimMover() : void
+    + adicionarPontoPegaUltimo(p:Ponto4D) : void
+    + lenght() : int
+    + alternaPrimitiva() : void
+    + finalizaDesenho() : void
+    + foiSelecionado(x:double, y:double) : bool
+    + translacaoPoligono() : void
+    + selecionaMaisProcimo(x:int, y:int) : void
+    + pegaUltimo() : void
+    + trocaModificado() : void
+}
+ObjetoGeometria <|-- Poligono
+Poligono --> "pontoSelecionado" Ponto4D
+@enduml
