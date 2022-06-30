@@ -1,0 +1,35 @@
+@startuml
+class CameraPerspective {
+    - fovy : float
+    - aspect : float
+    - near : float
+    - far : float
+    + CameraPerspective(fovy:float, aspect:float, near:float, far:float)
+    + Fovy : float <<get>> <<set>>
+    + Aspect : float <<get>> <<set>>
+    + Near : float <<get>> <<set>>
+    + Far : float <<get>> <<set>>
+    - FovyDes(deslocamento:float) : void
+    - NearDes(deslocamento:float) : void
+    - FarDes(deslocamento:float) : void
+    - EyeDes(deslocamento:float, eixo:char) : void
+    - AtDes(deslocamento:float, eixo:char) : void
+    + MenuTecla(tecla:OpenTK.Input.Key, eixo:char, deslocamento:float) : void
+    + <<override>> ToString() : string
+}
+enum menuCameraEnum {
+    eye,
+    at,
+    near,
+    far,
+    fovy,
+}
+CameraPerspective --> "eye" Vector3
+CameraPerspective --> "at" Vector3
+CameraPerspective --> "up" Vector3
+CameraPerspective --> "menuCameraOpcao" menuCameraEnum
+CameraPerspective --> "Eye" Vector3
+CameraPerspective --> "At" Vector3
+CameraPerspective --> "Up" Vector3
+CameraPerspective +-- menuCameraEnum
+@enduml
