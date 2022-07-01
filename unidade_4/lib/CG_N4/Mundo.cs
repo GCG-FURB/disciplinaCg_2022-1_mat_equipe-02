@@ -7,9 +7,9 @@ using OpenTK.Input;
 using CG_Biblioteca;
 
 
-namespace gcgcg
+namespace CG_N4
 {
-  class Mundo : GameWindow
+  public class Mundo : GameWindow
   {
     private static Mundo instanciaMundo = null;
 
@@ -23,10 +23,8 @@ namespace gcgcg
     }
 
     private CameraOrtho camera = new CameraOrtho();
-    protected List<Poligono> objetosLista = new List<Poligono>();
+    internal List<Poligono> objetosLista = new List<Poligono>();
     private Poligono objetoSelecionado = null;
-
-    private Ponto pont = new Ponto('#',null,100,100);
     private char objetoId = '@';
     private bool bBoxDesenhar = false;
     int mouseX, mouseY;
@@ -51,7 +49,6 @@ namespace gcgcg
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
       base.OnUpdateFrame(e);
-      pont.PrimitivaTamanho = 5;
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, camera.zmin, camera.zmax);
@@ -297,7 +294,7 @@ namespace gcgcg
     {
       ToolkitOptions.Default.EnableHighResolution = false;
       Mundo window = Mundo.GetInstance(600, 600);
-      window.Title = "CG_N3";
+      window.Title = "CG_N4";
       window.Run(1.0 / 60.0);
     }
   }

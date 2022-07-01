@@ -2,7 +2,7 @@ using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
 using System;
 
-namespace gcgcg
+namespace CG_N4
 {
   internal class Poligono : ObjetoGeometria
   {

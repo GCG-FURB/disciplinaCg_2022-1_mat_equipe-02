@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using CG_Biblioteca;
 using System;
 
-namespace gcgcg
+namespace CG_N4
 {
   internal abstract class ObjetoGeometria : Objeto
   {

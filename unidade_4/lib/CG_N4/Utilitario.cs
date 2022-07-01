@@ -4,7 +4,7 @@
 
 using System;
 
-namespace gcgcg
+namespace CG_N4
 {
   public abstract class Utilitario
   {

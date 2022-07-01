@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>CG_N4</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CG_Biblioteca\CG_Biblioteca.csproj" />
+  </ItemGroup>
+    <ItemGroup>
+    <PackageReference Include="OpenTK.NetCore" Version="*" />
+  </ItemGroup>
+
+</Project>

@@ -10,7 +10,7 @@ using System;
 using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
 
-namespace gcgcg
+namespace CG_N4
 {
   internal class Retangulo : ObjetoGeometria
   {
