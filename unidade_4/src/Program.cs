@@ -1,5 +1,4 @@
-﻿using CG_Biblioteca;
-using CG_N4;
+﻿using CG_N4;
 using OpenTK;
 
 class Program
