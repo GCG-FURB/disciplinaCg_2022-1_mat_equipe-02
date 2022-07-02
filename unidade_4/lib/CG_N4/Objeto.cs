@@ -11,7 +11,7 @@ using System;
 
 namespace CG_N4
 {
-  internal abstract class Objeto
+  public abstract class Objeto
   {
     protected char rotulo;
     private Cor objetoCor = new Cor(255, 255, 255, 255);

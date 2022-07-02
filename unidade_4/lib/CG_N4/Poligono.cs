@@ -4,7 +4,7 @@ using System;
 
 namespace CG_N4
 {
-  internal class Poligono : ObjetoGeometria
+  public class Poligono : ObjetoGeometria
   {
     private Ponto4D  pontoSelecionado;
     private bool Modificavel;
@@ -39,7 +39,7 @@ namespace CG_N4
       }
     }
     public void removerMaisProximo(int x,int y){
-      selecionaMaisProcimo(x,y);
+      selecionaMaisProximo(x,y);
       pontosLista.Remove(pontoSelecionado);
       GetBBox().AtualizaBBox(pontoSelecionado.X,pontoSelecionado.Y,pontosLista);
     }
@@ -81,7 +81,7 @@ namespace CG_N4
     public void translacaoPoligono() {
       //AtribuirTranslacao();
     }
-    public void selecionaMaisProcimo(int x,int y){
+    public void selecionaMaisProximo(int x,int y){
       Ponto4D temp = new();
       double disMenor = 100000;
       for (var i = 0; i < pontosLista.Count; i++)
