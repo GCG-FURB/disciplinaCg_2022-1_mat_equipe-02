@@ -11,6 +11,8 @@ namespace CG_N4
 {
     public class Mundo : GameWindow
     {
+
+        public int cooldownAsteroide = 0; 
         private static Mundo instanciaMundo = null;
 
         private Mundo(int width, int height) : base(width, height) { }
@@ -24,7 +26,7 @@ namespace CG_N4
 
         private CameraOrtho camera = new CameraOrtho();
         internal List<Poligono> objetosLista = new List<Poligono>();
-        private Poligono nave = null;
+        private Poligono objetoSelecionado = null;
         private char objetoId = '@';
         private bool bBoxDesenhar = false;
         private IDictionary<Key, Action<Mundo>> customKeys = new Dictionary<Key, Action<Mundo>>();
@@ -65,8 +67,8 @@ namespace CG_N4
             GL.LoadIdentity();
             for (var i = 0; i < objetosLista.Count; i++)
                 objetosLista[i].Desenhar();
-            if (bBoxDesenhar && (nave != null))
-                nave.BBox.Desenhar();
+            if (bBoxDesenhar && (objetoSelecionado != null))
+                objetoSelecionado.BBox.Desenhar();
             this.SwapBuffers();
         }
 
@@ -76,64 +78,64 @@ namespace CG_N4
                 Utilitario.AjudaTeclado();
             else if (e.Key == Key.Number3)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.rotacionarEixoBBox(4);
+                    objetoSelecionado.rotacionarEixoBBox(4);
                 }
             }
             else if (e.Key == Key.Number4)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.rotacionarEixoBBox(-4);
+                    objetoSelecionado.rotacionarEixoBBox(-4);
                 }
             }
             else if (e.Key == Key.Right)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.translacaoPoligonoX(true);
+                    objetoSelecionado.translacaoPoligonoX(true);
                 }
             }
             else if (e.Key == Key.Left)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.translacaoPoligonoX(false);
+                    objetoSelecionado.translacaoPoligonoX(false);
                 }
             }
             else if (e.Key == Key.P)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.imprimePontos(adicionar);
+                    objetoSelecionado.imprimePontos(adicionar);
                 }
             }
             else if (e.Key == Key.R)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.ObjetoCor.CorR = 255;
-                    nave.ObjetoCor.CorG = 0;
-                    nave.ObjetoCor.CorB = 0;
+                    objetoSelecionado.ObjetoCor.CorR = 255;
+                    objetoSelecionado.ObjetoCor.CorG = 0;
+                    objetoSelecionado.ObjetoCor.CorB = 0;
                 }
             }
             else if (e.Key == Key.G)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.ObjetoCor.CorR = 0;
-                    nave.ObjetoCor.CorG = 255;
-                    nave.ObjetoCor.CorB = 0;
+                    objetoSelecionado.ObjetoCor.CorR = 0;
+                    objetoSelecionado.ObjetoCor.CorG = 255;
+                    objetoSelecionado.ObjetoCor.CorB = 0;
                 }
             }
             else if (e.Key == Key.B)
             {
-                if (nave != null)
+                if (objetoSelecionado != null)
                 {
-                    nave.ObjetoCor.CorR = 0;
-                    nave.ObjetoCor.CorG = 0;
-                    nave.ObjetoCor.CorB = 255;
+                    objetoSelecionado.ObjetoCor.CorR = 0;
+                    objetoSelecionado.ObjetoCor.CorG = 0;
+                    objetoSelecionado.ObjetoCor.CorB = 255;
                 }
             }
             else if (e.Key == Key.E)
@@ -156,16 +158,16 @@ namespace CG_N4
         {
             Ponto4D novoObjeto = new(mouseX, mouseY);
             objetoId = Utilitario.charProximo(objetoId);
-            Poligono poligono = new(objetoId, nave, novoObjeto);
-            if (nave == null)
+            Poligono poligono = new(objetoId, objetoSelecionado, novoObjeto);
+            if (objetoSelecionado == null)
                 objetosLista.Add(poligono);
-            nave = poligono;
+            objetoSelecionado = poligono;
         }
 
         private void adicionarPontoPoligono()
         {
             Ponto4D aurelio = new(mouseX, mouseY);
-            nave.adicionarPontoPegaUltimo(aurelio);
+            objetoSelecionado.adicionarPontoPegaUltimo(aurelio);
         }
 
         public void addObjetoNaLista(Poligono obj)
@@ -185,7 +187,7 @@ namespace CG_N4
         {
             if (obj != null)
             {
-                nave = obj;
+                objetoSelecionado = obj;
             }
         }
         
