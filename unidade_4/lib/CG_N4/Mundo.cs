@@ -24,7 +24,7 @@ namespace CG_N4
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
+        private CameraPerspective camera = new CameraPerspective();
         internal List<Poligono> objetosLista = new List<Poligono>();
         private Poligono objetoSelecionado = null;
         private char objetoId = '@';
@@ -41,7 +41,8 @@ namespace CG_N4
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            camera.xmin = 0; camera.xmax = 600; camera.ymin = 0; camera.ymax = 600;
+            camera.Eye = new(300,300,0);camera.Far = 200;camera.Near = 600;
+
 
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
@@ -55,7 +56,7 @@ namespace CG_N4
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, camera.zmin, camera.zmax);
+            GL.Ortho(0, 600, 0, 600,0, 600);
 
         }
         protected override void OnRenderFrame(FrameEventArgs e)
