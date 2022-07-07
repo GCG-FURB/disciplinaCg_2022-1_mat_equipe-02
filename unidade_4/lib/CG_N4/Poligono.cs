@@ -1,6 +1,7 @@
 using OpenTK.Graphics.OpenGL;
 using CG_Biblioteca;
 using System;
+using System.Collections.Generic;
 
 namespace CG_N4
 {
@@ -17,8 +18,6 @@ namespace CG_N4
       Modificavel = true;
       base.PrimitivaTipo = PrimitiveType.LineStrip;
       PontosAdicionar(ponto);
-      Ponto4D a = new(ponto.X,ponto.Y);
-      PontosAdicionar(a);
       pontoSelecionado =  PontosUltimo();
     }
 
@@ -70,6 +69,10 @@ namespace CG_N4
     }
     public bool foiSelecionado(double x,double y){
       bool selecionado = false;
+      // List<Ponto4D> pontosAtualizados = new List<Ponto4D>();
+      // foreach(Ponto4D ponto in pontosLista) {
+      //   pontosAtualizados.Add(matriz.MultiplicarPonto(ponto));
+      // }
       if(base.PrimitivaTipo == PrimitiveType.LineLoop){
         selecionado = GetBBox().VerificaScanline(x,y,pontosLista,false);
       }else{

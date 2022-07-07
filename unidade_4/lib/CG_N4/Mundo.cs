@@ -11,8 +11,6 @@ namespace CG_N4
 {
     public class Mundo : GameWindow
     {
-
-        public int cooldownAsteroide = 0; 
         private static Mundo instanciaMundo = null;
 
         private Mundo(int width, int height) : base(width, height) { }
@@ -66,8 +64,12 @@ namespace CG_N4
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
-            for (var i = 0; i < objetosLista.Count; i++)
+            
+            for (var i = 0; i < objetosLista.Count; i++) {
                 objetosLista[i].Desenhar();
+                if(objetosLista[i].GetType().Equals(typeof(Tiro)))
+                    verificaColisao((Tiro) objetosLista[i]);
+            }
             if (bBoxDesenhar && (objetoSelecionado != null))
                 objetoSelecionado.BBox.Desenhar();
             this.SwapBuffers();
@@ -77,6 +79,8 @@ namespace CG_N4
         {
             if (e.Key == Key.H)
                 Utilitario.AjudaTeclado();
+            else if (e.Key == Key.Escape)
+                Exit();
             else if (e.Key == Key.Number3)
             {
                 if (objetoSelecionado != null)
@@ -176,6 +180,11 @@ namespace CG_N4
             this.objetosLista.Add(obj);
         }
 
+        public List<Poligono> getListaObjetos()
+        {
+            return this.objetosLista;
+        }
+
         public void removeAsteroide(Poligono asteroide)
         {
             if (asteroide != null)
@@ -196,5 +205,22 @@ namespace CG_N4
         {
         this.customKeys.Add(key, callback);
         }
-    }
+
+        public void verificaColisao(Tiro tiro) {
+            foreach(Poligono pol in objetosLista)
+            {
+                if(pol.GetType().Equals(typeof(Asteroide)))
+                {
+                    Asteroide asteroide = (Asteroide) pol;
+                    if(pol.foiSelecionado(tiro.matriz.MultiplicarPonto(tiro.getPosicao()).X, tiro.getPosicao().Y)) {
+                        asteroide.matar();
+                        objetosLista.Remove(tiro);
+                        tiro = null;
+                        break;
+                    }
+                }
+            }
+        }            
+        
+}
 }

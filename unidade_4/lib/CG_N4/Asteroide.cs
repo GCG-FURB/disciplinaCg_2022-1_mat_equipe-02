@@ -1,8 +1,9 @@
-using CG_N4;
 using CG_Biblioteca;
 using OpenTK.Graphics.OpenGL;
 
-  internal class Asteroide : Poligono
+namespace CG_N4
+{
+  public class Asteroide : Poligono
   {
 
     protected static int cooldown = 0;
@@ -34,7 +35,7 @@ using OpenTK.Graphics.OpenGL;
         pontosLista[2].Y = 450;
         pontosLista[3].Y = 550;
         isDead = false;
-        cooldown = 50000;
+        cooldown = 500;
       }
       cooldown--;
       chamada++;
@@ -49,13 +50,15 @@ using OpenTK.Graphics.OpenGL;
         }
         GL.Vertex2(pontosLista[i].X, pontosLista[i].Y);
       }
+      BBox.AtualizaBBox(pontosLista);
       GL.End();
     }
 
-    public void matar(Mundo mundo) {
+    public void matar() {
       foreach(Ponto4D ponto in pontosLista) {
         ponto.Y = -500;
       }
       isDead = true;
     }
+}
 }

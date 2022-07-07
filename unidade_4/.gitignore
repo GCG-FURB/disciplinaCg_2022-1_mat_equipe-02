@@ -7,6 +7,7 @@
 thumbs.db
 desktop.ini
 .DS_Store
+.vscode
 
 # User-specific files
 *.rsuser

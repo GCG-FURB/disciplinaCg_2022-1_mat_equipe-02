@@ -1,8 +1,10 @@
-using CG_N4;
 using CG_Biblioteca;
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
-  internal class Nave : Poligono
+namespace CG_N4
+{
+  public class Nave : Poligono
   {
     private static Cor magenta=new(255,0,255), cyano=new(0,255,255), preto=new(0,0,0), amarelo=new(255,255,0);
     PrimitiveType[] primitivas = { PrimitiveType.Points, PrimitiveType.Lines, PrimitiveType.LineLoop, PrimitiveType.LineStrip, PrimitiveType.Triangles, PrimitiveType.TriangleStrip, PrimitiveType.TriangleFan, PrimitiveType.Quads, PrimitiveType.QuadStrip, PrimitiveType.Polygon };
@@ -33,9 +35,10 @@ using OpenTK.Graphics.OpenGL;
     public void atirar(Mundo context) {
       if(cooldown > 0)
         return;
-      Tiro tiro = new('N', null, new(pontosLista[2].X, pontosLista[2].Y));
+      Tiro tiro = new('N', null, new(pontosLista[1].X, pontosLista[1].Y));
       tiro.matriz = matriz;
       context.addObjetoNaLista(tiro);
       cooldown = 150;
     }
+}
 }
