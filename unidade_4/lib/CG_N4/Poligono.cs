@@ -67,12 +67,9 @@ namespace CG_N4
         Modificavel = false;
       }
     }
+
     public bool foiSelecionado(double x,double y){
       bool selecionado = false;
-      // List<Ponto4D> pontosAtualizados = new List<Ponto4D>();
-      // foreach(Ponto4D ponto in pontosLista) {
-      //   pontosAtualizados.Add(matriz.MultiplicarPonto(ponto));
-      // }
       if(base.PrimitivaTipo == PrimitiveType.LineLoop){
         selecionado = GetBBox().VerificaScanline(x,y,pontosLista,false);
       }else{
@@ -80,10 +77,7 @@ namespace CG_N4
       }
       return selecionado;
     }
-    
-    public void translacaoPoligono() {
-      //AtribuirTranslacao();
-    }
+
     public void selecionaMaisProximo(int x,int y){
       Ponto4D temp = new();
       double disMenor = 100000;

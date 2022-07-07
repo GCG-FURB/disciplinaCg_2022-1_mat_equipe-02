@@ -14,8 +14,7 @@ class Program
       Mundo window = Mundo.GetInstance(600, 600);
       Nave nave = new('N', null, new(280));
       nave.alternaPrimitiva();
-      window.addObjetoNaLista(nave);
-      window.selecionarObjeto(nave);
+      window.setarNave(nave);
       window.addCustomKey(Key.Up, nave.atirar);
       window.Title = "CG_N4";
       gerarAsteroides(window);

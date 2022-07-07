@@ -24,7 +24,7 @@ namespace CG_N4
 
         private CameraPerspective camera = new CameraPerspective();
         internal List<Poligono> objetosLista = new List<Poligono>();
-        private Poligono objetoSelecionado = null;
+        private Nave nave = null;
         private char objetoId = '@';
         private bool bBoxDesenhar = false;
         private IDictionary<Key, Action<Mundo>> customKeys = new Dictionary<Key, Action<Mundo>>();
@@ -69,9 +69,13 @@ namespace CG_N4
                 objetosLista[i].Desenhar();
                 if(objetosLista[i].GetType().Equals(typeof(Tiro)))
                     verificaColisao((Tiro) objetosLista[i]);
+                else {
+                    verificaColisao((Asteroide) objetosLista[i]);
+                }
             }
-            if (bBoxDesenhar && (objetoSelecionado != null))
-                objetoSelecionado.BBox.Desenhar();
+            nave.Desenhar();
+            if (bBoxDesenhar && (nave != null))
+                nave.BBox.Desenhar();
             this.SwapBuffers();
         }
 
@@ -83,64 +87,64 @@ namespace CG_N4
                 Exit();
             else if (e.Key == Key.Number3)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.rotacionarEixoBBox(4);
+                    nave.rotacionarEixoBBox(4);
                 }
             }
             else if (e.Key == Key.Number4)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.rotacionarEixoBBox(-4);
+                    nave.rotacionarEixoBBox(-4);
                 }
             }
             else if (e.Key == Key.Right)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.translacaoPoligonoX(true);
+                    nave.translacaoPoligonoX(true);
                 }
             }
             else if (e.Key == Key.Left)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.translacaoPoligonoX(false);
+                    nave.translacaoPoligonoX(false);
                 }
             }
             else if (e.Key == Key.P)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.imprimePontos(adicionar);
+                    nave.imprimePontos(adicionar);
                 }
             }
             else if (e.Key == Key.R)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.ObjetoCor.CorR = 255;
-                    objetoSelecionado.ObjetoCor.CorG = 0;
-                    objetoSelecionado.ObjetoCor.CorB = 0;
+                    nave.ObjetoCor.CorR = 255;
+                    nave.ObjetoCor.CorG = 0;
+                    nave.ObjetoCor.CorB = 0;
                 }
             }
             else if (e.Key == Key.G)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.ObjetoCor.CorR = 0;
-                    objetoSelecionado.ObjetoCor.CorG = 255;
-                    objetoSelecionado.ObjetoCor.CorB = 0;
+                    nave.ObjetoCor.CorR = 0;
+                    nave.ObjetoCor.CorG = 255;
+                    nave.ObjetoCor.CorB = 0;
                 }
             }
             else if (e.Key == Key.B)
             {
-                if (objetoSelecionado != null)
+                if (nave != null)
                 {
-                    objetoSelecionado.ObjetoCor.CorR = 0;
-                    objetoSelecionado.ObjetoCor.CorG = 0;
-                    objetoSelecionado.ObjetoCor.CorB = 255;
+                    nave.ObjetoCor.CorR = 0;
+                    nave.ObjetoCor.CorG = 0;
+                    nave.ObjetoCor.CorB = 255;
                 }
             }
             else if (e.Key == Key.E)
@@ -159,20 +163,10 @@ namespace CG_N4
                 Console.WriteLine(" __ Tecla não implementada.");
         }
 
-        protected void criarPoligonoNaTela()
-        {
-            Ponto4D novoObjeto = new(mouseX, mouseY);
-            objetoId = Utilitario.charProximo(objetoId);
-            Poligono poligono = new(objetoId, objetoSelecionado, novoObjeto);
-            if (objetoSelecionado == null)
-                objetosLista.Add(poligono);
-            objetoSelecionado = poligono;
-        }
-
         private void adicionarPontoPoligono()
         {
             Ponto4D aurelio = new(mouseX, mouseY);
-            objetoSelecionado.adicionarPontoPegaUltimo(aurelio);
+            nave.adicionarPontoPegaUltimo(aurelio);
         }
 
         public void addObjetoNaLista(Poligono obj)
@@ -193,11 +187,11 @@ namespace CG_N4
             }
         }
 
-        public void selecionarObjeto(Poligono obj)
+        public void setarNave(Nave naveCandidata)
         {
-            if (obj != null)
+            if (naveCandidata != null)
             {
-                objetoSelecionado = obj;
+                nave = naveCandidata;
             }
         }
         
@@ -206,13 +200,17 @@ namespace CG_N4
         this.customKeys.Add(key, callback);
         }
 
+        private void gameOver() {
+            objetosLista = new List<Poligono>();
+        }
+
         public void verificaColisao(Tiro tiro) {
             foreach(Poligono pol in objetosLista)
             {
                 if(pol.GetType().Equals(typeof(Asteroide)))
                 {
                     Asteroide asteroide = (Asteroide) pol;
-                    if(pol.foiSelecionado(tiro.matriz.MultiplicarPonto(tiro.getPosicao()).X, tiro.getPosicao().Y)) {
+                    if(asteroide.foiSelecionado(tiro.matriz.MultiplicarPonto(tiro.getPosicao()).X, tiro.getPosicao().Y)) {
                         asteroide.matar();
                         objetosLista.Remove(tiro);
                         tiro = null;
@@ -220,7 +218,12 @@ namespace CG_N4
                     }
                 }
             }
-        }            
-        
+        }
+
+        public void verificaColisao(Asteroide asteroide) {               
+            if(asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPosicao()).X, nave.getPosicao().Y)) {
+                gameOver();
+            }
+        }
 }
 }

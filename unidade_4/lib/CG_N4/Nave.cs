@@ -32,6 +32,10 @@ namespace CG_N4
       cooldown--;
     }
 
+    public Ponto4D getPosicao() {
+      return pontosLista[1];
+    }
+
     public void atirar(Mundo context) {
       if(cooldown > 0)
         return;
