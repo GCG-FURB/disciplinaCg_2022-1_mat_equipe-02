@@ -13,7 +13,7 @@ namespace CG_N4
 
     public Tiro(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef, ponto)
     {
-        adicionarPontoPegaUltimo(new(ponto.X, ponto.Y - 5));
+      PontosAdicionar(new(ponto.X, ponto.Y - 5));
     }
 
     public Ponto4D getPosicao() {

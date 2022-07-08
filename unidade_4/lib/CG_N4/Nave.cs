@@ -15,8 +15,9 @@ namespace CG_N4
 
     public Nave(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef, ponto)
     {
-        adicionarPontoPegaUltimo(new(ponto.X + 20, 20));
-        adicionarPontoPegaUltimo(new(ponto.X + 40));
+      PontosAdicionar(new(ponto.X + 20, 20));
+      PontosAdicionar(new(ponto.X + 40));
+      PrimitivaTipo = PrimitiveType.Polygon;
     }
 
     int cooldown = 0;

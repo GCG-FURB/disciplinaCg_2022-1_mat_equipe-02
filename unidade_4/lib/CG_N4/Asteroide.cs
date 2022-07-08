@@ -21,9 +21,9 @@ namespace CG_N4
     {
       this.maxAsteroides = maxAsteroides;
       this.id = chamada++;
-      adicionarPontoPegaUltimo(new(ponto.X + 50, 550));
-      adicionarPontoPegaUltimo(new(ponto.X, 450));
-      adicionarPontoPegaUltimo(new(ponto.X - 50, 550));
+      PontosAdicionar(new(ponto.X + 50, 550));
+      PontosAdicionar(new(ponto.X, 450));
+      PontosAdicionar(new(ponto.X - 50, 550));
     }
 
     protected override void DesenharObjeto()

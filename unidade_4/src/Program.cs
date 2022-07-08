@@ -13,7 +13,6 @@ class Program
       ToolkitOptions.Default.EnableHighResolution = false;
       Mundo window = Mundo.GetInstance(600, 600);
       Nave nave = new('N', null, new(280));
-      nave.alternaPrimitiva();
       window.setarNave(nave);
       window.addCustomKey(Key.Up, nave.atirar);
       window.Title = "CG_N4";

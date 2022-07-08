@@ -28,18 +28,14 @@ namespace CG_N4
         private char objetoId = '@';
         private bool bBoxDesenhar = false;
         private IDictionary<Key, Action<Mundo>> customKeys = new Dictionary<Key, Action<Mundo>>();
-
-        int mouseX, mouseY;
-        private bool mouseMoverPto = false;
         private bool adicionar = false;
-        private bool ehDesenhoJaIniciado = false;
-        private bool moverAtivo = false;
-        private bool removerAtivo = false;
+        private Vector3 eye = new(300,300,0);
+        private float far = 200, near = 600;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            camera.Eye = new(300,300,0); camera.Far = 200; camera.Near = 600;
+            camera.Eye = eye; camera.Far = far; camera.Near = near;
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -156,12 +152,6 @@ namespace CG_N4
             }
             else
                 Console.WriteLine(" __ Tecla não implementada.");
-        }
-
-        private void adicionarPontoPoligono()
-        {
-            Ponto4D aurelio = new(mouseX, mouseY);
-            nave.adicionarPontoPegaUltimo(aurelio);
         }
 
         public void addObjetoNaLista(Poligono obj)
