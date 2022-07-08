@@ -39,9 +39,13 @@ namespace CG_N4
     }
 
     public void rotacionarEixoBBox(int angulo) {
-      if(anguloResultante >= 45 || anguloResultante <= -45)
-        return;
       anguloResultante += angulo;
+      if(anguloResultante > 45){
+        anguloResultante = 45;
+      }
+      if(anguloResultante < -45){
+        anguloResultante = -45;
+      }
       matriz.AtribuirIdentidade();
       base.rotacionarEixoBBox(anguloResultante);
     }
@@ -59,7 +63,9 @@ namespace CG_N4
       if(cooldown > 0)
         return;
       Tiro tiro = new('N', null, new(pontosLista[1].X, pontosLista[1].Y));
-      tiro.matriz = matriz;
+      Transformacao4D aux = new();
+      aux = aux.MultiplicarMatriz(matriz);
+      tiro.matriz = aux;
       context.addObjetoNaLista(tiro);
       cooldown = 150;
     }
