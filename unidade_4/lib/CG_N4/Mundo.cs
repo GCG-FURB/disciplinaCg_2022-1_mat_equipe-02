@@ -204,7 +204,12 @@ namespace CG_N4
                 }
             }
         }
-
+        public void verificaTiroFora(Tiro tiro){
+            if(tiro.balaPerdida()){
+                objetosLista.Remove(tiro);
+                tiro = null;
+            }
+        }
         public void verificaColisao(Asteroide asteroide) {               
             if(asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(0)).X, nave.getPonto(0).Y)
             || asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(1)).X, nave.getPonto(1).Y)
