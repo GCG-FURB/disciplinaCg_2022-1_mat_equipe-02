@@ -11,6 +11,8 @@ namespace CG_N4
     Cor[] cores = { magenta, cyano, amarelo,  preto};
     public List<Tiro> tiros = new List<Tiro>();
 
+    private int anguloResultante;
+
     public Nave(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef, ponto)
     {
         adicionarPontoPegaUltimo(new(ponto.X + 20, 20));
@@ -32,8 +34,25 @@ namespace CG_N4
       cooldown--;
     }
 
-    public Ponto4D getPosicao() {
-      return pontosLista[1];
+    public Ponto4D getPonto(int ponto) {
+      return pontosLista[ponto];
+    }
+
+    public void rotacionarEixoBBox(int angulo) {
+      if(anguloResultante >= 45 || anguloResultante <= -45)
+        return;
+      anguloResultante += angulo;
+      matriz.AtribuirIdentidade();
+      base.rotacionarEixoBBox(anguloResultante);
+    }
+
+    public void mover(int distancia) {
+      matriz.AtribuirIdentidade();
+      this.getPonto(0).X += distancia;
+      this.getPonto(1).X += distancia;
+      this.getPonto(2).X += distancia;
+      this.BBox.AtualizaBBox(pontosLista);
+      base.rotacionarEixoBBox(anguloResultante);
     }
 
     public void atirar(Mundo context) {

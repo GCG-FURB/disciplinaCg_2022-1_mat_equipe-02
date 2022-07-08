@@ -39,15 +39,10 @@ namespace CG_N4
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            camera.Eye = new(300,300,0);camera.Far = 200;camera.Near = 600;
-
-
+            camera.Eye = new(300,300,0); camera.Far = 200; camera.Near = 600;
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
-
-
             GL.ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
@@ -103,14 +98,14 @@ namespace CG_N4
             {
                 if (nave != null)
                 {
-                    nave.translacaoPoligonoX(true);
+                    nave.mover(3);
                 }
             }
             else if (e.Key == Key.Left)
             {
                 if (nave != null)
                 {
-                    nave.translacaoPoligonoX(false);
+                    nave.mover(-3);
                 }
             }
             else if (e.Key == Key.P)
@@ -221,7 +216,9 @@ namespace CG_N4
         }
 
         public void verificaColisao(Asteroide asteroide) {               
-            if(asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPosicao()).X, nave.getPosicao().Y)) {
+            if(asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(0)).X, nave.getPonto(0).Y)
+            || asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(1)).X, nave.getPonto(1).Y)
+            || asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(2)).X, nave.getPonto(2).Y)) {
                 gameOver();
             }
         }
