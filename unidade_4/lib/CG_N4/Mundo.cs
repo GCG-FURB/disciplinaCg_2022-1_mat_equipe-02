@@ -29,13 +29,16 @@ namespace CG_N4
         private bool bBoxDesenhar = false;
         private IDictionary<Key, Action<Mundo>> customKeys = new Dictionary<Key, Action<Mundo>>();
         private bool adicionar = false;
-        private Vector3 eye = new(300,300,0);
-        private float far = 200, near = 600;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            camera.Eye = eye; camera.Far = far; camera.Near = near;
+            GL.Enable(EnableCap.DepthTest);
+
+            camera.Eye = new(300,300,740);
+            camera.At = new Vector3(300, 300, 0);
+            camera.Far = 1000; 
+            camera.Near = 0.1f;
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -43,19 +46,27 @@ namespace CG_N4
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            GL.Ortho(0, 600, 0, 600,0, 600);
+        }
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            camera.Fovy = (float)Math.PI / 4;
+            camera.Aspect = Width / (float)Height;
 
+            GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
+            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(camera.Fovy, camera.Aspect, camera.Near, camera.Far);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref projection);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
 
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            Matrix4 modelview = Matrix4.LookAt(camera.Eye, camera.At, camera.Up);
             GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadIdentity();
-            
+            GL.LoadMatrix(ref modelview);
+            Sru3D();
             for (var i = 0; i < objetosLista.Count; i++) {
                 objetosLista[i].Desenhar();
                 if(objetosLista[i].GetType().Equals(typeof(Tiro)))
@@ -216,6 +227,21 @@ namespace CG_N4
             || asteroide.foiSelecionado(nave.matriz.MultiplicarPonto(nave.getPonto(2)).X, nave.getPonto(2).Y)) {
                 gameOver();
             }
+        }
+        private void Sru3D()
+        {
+            GL.LineWidth(1);
+            GL.Begin(PrimitiveType.Lines);
+            // GL.Color3(1.0f,0.0f,0.0f);
+            GL.Color3(Convert.ToByte(255), Convert.ToByte(0), Convert.ToByte(0));
+            GL.Vertex3(0, 0, 0); GL.Vertex3(20, 0, 0);
+            // GL.Color3(0.0f,1.0f,0.0f);
+            GL.Color3(Convert.ToByte(0), Convert.ToByte(255), Convert.ToByte(0));
+            GL.Vertex3(0, 0, 0); GL.Vertex3(0, 20, 0);
+            // GL.Color3(0.0f,0.0f,1.0f);
+            GL.Color3(Convert.ToByte(0), Convert.ToByte(0), Convert.ToByte(255));
+            GL.Vertex3(0, 0, 0); GL.Vertex3(0, 0, 20);
+            GL.End();
         }
 }
 }
