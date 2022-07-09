@@ -5,7 +5,7 @@ using OpenTK.Input;
 class Program
   {
 
-    static int NUM_MAX_ASTEROIDES = 3;
+    static int NUM_MAX_ASTEROIDES = 5;
 
     static void Main(string[] args)
     {

@@ -29,14 +29,12 @@ namespace CG_N4
     {
       GL.LineWidth(5);
       GL.Begin(base.PrimitivaTipo);
-      GL.Normal3(0, 0, -1);
       GL.Color3(cores[0].CorR, cores[0].CorG, cores[0].CorB);
       GL.Vertex3(pontosLista[0].X, pontosLista[0].Y,pontosLista[0].Z);
       GL.Vertex3(pontosLista[1].X, pontosLista[1].Y,pontosLista[1].Z);
       GL.Vertex3(pontosLista[2].X, pontosLista[2].Y,pontosLista[2].Z);
       GL.End();
       GL.Begin(base.PrimitivaTipo);
-      GL.Normal3(1, 0, 0);
       GL.Color3(cores[1].CorR, cores[1].CorG, cores[1].CorB);
       GL.Vertex3(pontosLista[1].X, pontosLista[1].Y,pontosLista[1].Z);
       GL.Vertex3(pontosLista[2].X, pontosLista[2].Y,pontosLista[2].Z);
@@ -44,22 +42,19 @@ namespace CG_N4
       GL.Vertex3(pontosLista[4].X, pontosLista[4].Y,pontosLista[4].Z);
       GL.End();
       GL.Begin(base.PrimitivaTipo);
-      GL.Normal3(0, 0, 1);
       GL.Color3(cores[2].CorR, cores[2].CorG, cores[2].CorB);
       GL.Vertex3(pontosLista[3].X, pontosLista[3].Y,pontosLista[3].Z);
       GL.Vertex3(pontosLista[4].X, pontosLista[4].Y,pontosLista[4].Z);
       GL.Vertex3(pontosLista[5].X, pontosLista[5].Y,pontosLista[5].Z);
       GL.End();
       GL.Begin(base.PrimitivaTipo);
-      GL.Color3(cores[3].CorR, cores[3].CorG, cores[3].CorB);
-      GL.Normal3(0, -1, 0);
+      GL.Color3(cores[4].CorR, cores[4].CorG, cores[4].CorB);//verde
       GL.Vertex3(pontosLista[0].X, pontosLista[0].Y,pontosLista[0].Z);
       GL.Vertex3(pontosLista[2].X, pontosLista[2].Y,pontosLista[2].Z);
       GL.Vertex3(pontosLista[5].X, pontosLista[5].Y,pontosLista[5].Z);
       GL.Vertex3(pontosLista[3].X, pontosLista[3].Y,pontosLista[3].Z);
       GL.End();
       GL.Begin(base.PrimitivaTipo);
-      GL.Normal3(-1, 0, 0);
       GL.Color3(cores[4].CorR, cores[4].CorG, cores[4].CorB);
       GL.Vertex3(pontosLista[0].X, pontosLista[0].Y,pontosLista[0].Z);
       GL.Vertex3(pontosLista[1].X, pontosLista[1].Y,pontosLista[1].Z);
