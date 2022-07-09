@@ -29,7 +29,7 @@ namespace CG_N4
         private bool bBoxDesenhar = false;
         private IDictionary<Key, Action<Mundo>> customKeys = new Dictionary<Key, Action<Mundo>>();
         private bool adicionar = false;
-
+        private bool cameraNave = false;
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -92,6 +92,7 @@ namespace CG_N4
                 if (nave != null)
                 {
                     nave.rotacionarEixoBBox(4);
+                    ajustaCameraNave();
                 }
             }
             else if (e.Key == Key.Number4)
@@ -99,6 +100,7 @@ namespace CG_N4
                 if (nave != null)
                 {
                     nave.rotacionarEixoBBox(-4);
+                    ajustaCameraNave();
                 }
             }
             else if (e.Key == Key.Right)
@@ -106,6 +108,7 @@ namespace CG_N4
                 if (nave != null)
                 {
                     nave.mover(3);
+                    ajustaCameraNave();
                 }
             }
             else if (e.Key == Key.Left)
@@ -113,6 +116,7 @@ namespace CG_N4
                 if (nave != null)
                 {
                     nave.mover(-3);
+                    ajustaCameraNave();
                 }
             }
             else if (e.Key == Key.P)
@@ -130,6 +134,15 @@ namespace CG_N4
                     nave.ObjetoCor.CorG = 0;
                     nave.ObjetoCor.CorB = 0;
                 }
+            }
+            else if (e.Key == Key.Space)
+            {
+                if(cameraNave){
+                    cameraNave = false;
+                }else{
+                    cameraNave = true;
+                }
+                ajustaCameraNave();
             }
             else if (e.Key == Key.G)
             {
@@ -242,6 +255,17 @@ namespace CG_N4
             GL.Color3(Convert.ToByte(0), Convert.ToByte(0), Convert.ToByte(255));
             GL.Vertex3(0, 0, 0); GL.Vertex3(0, 0, 20);
             GL.End();
+        }
+        private void ajustaCameraNave(){
+            if(cameraNave){
+                Ponto4D ponto1 = nave.getPontoMatriz(0);
+                camera.Eye = new((float)ponto1.X+20,(float)ponto1.Y-200,(float)ponto1.Z+200);
+                ponto1 = nave.getPontoMatriz(1);
+                camera.At = new((float)ponto1.X,(float)ponto1.Y,(float)ponto1.Z);
+            }else{
+                camera.Eye = new(300,300,740);
+                camera.At = new Vector3(300, 300, 0);
+            }
         }
 }
 }

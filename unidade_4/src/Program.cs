@@ -1,7 +1,6 @@
 ﻿using CG_N4;
 using OpenTK;
 using OpenTK.Input;
-
 class Program
   {
 
@@ -9,7 +8,6 @@ class Program
 
     static void Main(string[] args)
     {
-
       ToolkitOptions.Default.EnableHighResolution = false;
       Mundo window = Mundo.GetInstance(600, 600);
       Nave nave = new('N', null, new(300,0,10));

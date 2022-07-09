@@ -12,14 +12,14 @@ using CG_Biblioteca;
 
 namespace CG_N4
 {
-  internal class Retangulo : ObjetoGeometria
+  public class Retangulo : ObjetoGeometria
   {
     public Retangulo(char rotulo, Objeto paiRef, Ponto4D ptoInfEsq, Ponto4D ptoSupDir) : base(rotulo, paiRef)
     {
       base.PontosAdicionar(ptoInfEsq);
-      base.PontosAdicionar(new Ponto4D(ptoSupDir.X, ptoInfEsq.Y));
+      base.PontosAdicionar(new Ponto4D(ptoSupDir.X, ptoInfEsq.Y,ptoInfEsq.Z));
       base.PontosAdicionar(ptoSupDir);
-      base.PontosAdicionar(new Ponto4D(ptoInfEsq.X, ptoSupDir.Y));
+      base.PontosAdicionar(new Ponto4D(ptoInfEsq.X, ptoSupDir.Y,ptoSupDir.Z));
     }
 
     protected override void DesenharObjeto()
@@ -28,7 +28,7 @@ namespace CG_N4
       GL.Begin(base.PrimitivaTipo);
       foreach (Ponto4D pto in pontosLista)
       {
-        GL.Vertex2(pto.X, pto.Y);
+        GL.Vertex3(pto.X, pto.Y,pto.Z);
       }
       GL.End();
 #elif CG_DirectX && !CG_OpenGL

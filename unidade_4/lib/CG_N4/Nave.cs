@@ -12,7 +12,6 @@ namespace CG_N4
     public List<Tiro> tiros = new List<Tiro>();
 
     private int anguloResultante;
-
     public Nave(char rotulo, Objeto paiRef, Ponto4D ponto) : base(rotulo, paiRef, ponto)
     {
       PontosAdicionar(new(ponto.X + 20, ponto.Y + 20, ponto.Z));
@@ -67,7 +66,9 @@ namespace CG_N4
     public Ponto4D getPonto(int ponto) {
       return pontosLista[ponto];
     }
-
+    public Ponto4D getPontoMatriz(int ponto) {
+      return matriz.MultiplicarPonto(pontosLista[ponto]);
+    }
     public void rotacionarEixoBBox(int angulo) {
       anguloResultante += angulo;
       if(anguloResultante > 45){
